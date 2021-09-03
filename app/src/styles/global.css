@@ -1,0 +1,256 @@
+:root {
+    --yellow-high: #FFE676!important;
+    --yellow: #FFCA37!important;
+    --yellow-low: #D3B430!important;
+    --red: #DA2626!important;
+    --blue-high: #25beff!important;
+    --blue: #00A2E8!important;
+    --blue-low: #008ac5!important;
+    --green-high: #42FF00!important;
+    --green: #6FEA44!important;
+    --green-medium: #6FEA44!important;
+    --gray-low: #202020!important;
+    --gray: #757575!important;
+    --gray-medium: #CFCFCF!important;
+    --purple: #CC00FF!important;
+    --gray-high: #F1F5FA!important;
+    --gray-high-2: #e3e6eb!important;
+    --white: #FFFFFF!important;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.7);
+    border-radius: 10px;
+}
+
+@font-face {
+    font-family: AudioWide;
+    src: url(../assets/fonts/Audiowide-Regular.ttf);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%!important;
+    font-family: 'Open Sans', sans-serif!important;
+    background-color: var(--gray-high)!important;
+    color: var(--gray-low)!important;
+    overflow-x: hidden;
+}
+
+.hr {
+    border-top: 1px solid var(--gray-medium);
+    width: 100%;
+    margin: .7rem 0;
+}
+
+.logo {
+    width: 10rem;
+}
+
+.img-user {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+a, router-link {
+    text-decoration: none;
+    color: var(--gray-low)!important;
+    transition: 0.2s;
+    line-height: .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a:hover, router-link:hover {
+    opacity: 0.8;
+    text-decoration: none!important;
+}
+
+
+@media (max-width: 720px) {
+    .img-user {
+        width: 40px;
+        height: 40px;
+    }
+    .logo {
+        width: 8rem;
+    }
+}
+
+i {
+    color: var(--gray-low);
+    text-decoration: none;
+}
+
+h1, h1, h3, h4, h5, h6 {
+    margin: 0!important;
+}
+
+p {
+    font-size: .9rem;
+}
+
+.avatar-p, .avatar-pp {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-p {
+    width: 50px;
+    height: 50px;
+}
+
+.avatar-pp {
+    width: 40px;
+    height: 40px;
+}
+
+@media (max-width: 720px) {
+    .avatar-p {
+        width: 43px;
+        height: 43px;
+    }
+}
+
+.rank-1, .rank-2, .rank-3, .rank-4, .rank-5 {
+    border-radius: 50%;
+}
+
+.rank-1 {
+    border: 3px solid var(--purple);
+}
+
+.rank-1-badge {
+    background-color: var(--purple);
+}
+
+.rank-2 {
+    border: 3px solid var(--yellow-high);
+}
+
+.rank-2-badge {
+    background-color: var(--yellow-high);
+}
+
+.rank-3 {
+    border: 3px solid var(--green);
+}
+
+.rank-3-badge {
+    background-color: var(--green);
+}
+
+.rank-4 {
+    border: 3px solid var(--blue);
+}
+
+.rank-4-badge {
+    background-color: var(--blue);
+}
+
+.rank-5 {
+    border: 3px solid var(--gray-low);
+}
+
+.rank-5-badge {
+    background-color: var(--gray-low);
+}
+
+.label-ranking-interaction {
+    margin: .3rem 0;
+    border-radius: 7px;
+    color: var(--white);
+    padding: 3px 5px;
+}
+    .label-ranking-interaction h6 {
+        font-size: .7rem;
+    }
+        .label-ranking-interaction h6 span {
+            font-style: italic;
+        }
+
+.online {
+    background: var(--green);
+}
+
+.offline {
+    background: var(--gray);
+}
+
+.icon-clicable {
+    cursor: pointer;
+    transition: 0.2s;
+}
+.icon-clicable:hover {
+    opacity: 0.8;
+}
+
+.main-container {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s width;
+    overflow: hidden;
+}
+
+.inner-container {
+    padding: 1.7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    width: 45vw;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+@media (max-width: 1158px) {
+    .inner-container {
+        width: 80%;
+        padding-top: 4.8rem;
+    }
+    .main-container {
+        width: 74vw;
+    }
+}
+
+@media (max-width: 1067px) {
+    .main-container {
+        width: 70vw;
+    }
+}
+
+@media (max-width: 925px) {
+    .main-container {
+        width: 67vw;
+    }
+}
+
+@media (max-width: 850px) {
+    .main-container {
+        width: 100vw;
+    }
+}
+
+.comment-text {
+    font-size: .9em;
+    margin: 0;
+}

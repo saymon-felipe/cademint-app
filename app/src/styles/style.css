@@ -1,0 +1,41 @@
+/* Cademint inicial */
+*{
+    padding: 0;
+    margin: 0;
+}
+html, body {
+    overflow-x: hidden;
+    height: 100%;
+}
+body {
+    
+}
+.page-content {
+    display: flex;
+    justify-content: center;
+}
+.navigation-menu, .chat {
+    width: 20%;
+    max-width: 700px;
+    border: 1px solid red;
+}
+.principal-content {
+    width: 60%;
+    max-width: 2100px;
+    border: 1px solid blue;
+}
+
+:root {
+    --yellow-high: #ffe988;
+    --yellow: #F7D130;
+    --yellow-low: #c2a629;
+    --white: #F7F7FF;
+    --blue-high: #a1c4ff;
+    --blue: #4F90FF;
+    --red: #CD533B;
+    --green: #86CD82;
+    --green-low: #324e31;
+    --gray: #505050;
+    --gray-low: #202020;
+    --gray-high: #757575;
+}
