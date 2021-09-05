@@ -10,8 +10,10 @@
     --green: #6FEA44!important;
     --green-medium: #6FEA44!important;
     --gray-low: #202020!important;
+    --gray-low-2: rgb(92, 92, 92)20!important;
     --gray: #757575!important;
     --gray-medium: #CFCFCF!important;
+    --gray-medium-2: #bdbdbd!important;
     --purple: #CC00FF!important;
     --gray-high: #F1F5FA!important;
     --gray-high-2: #e3e6eb!important;
@@ -22,8 +24,11 @@
     width: 7px;
 }
 ::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.7);
+    background: rgba(126, 90, 90, 0.2);
     border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(126, 90, 90, 0.5);
 }
 
 @font-face {
@@ -44,7 +49,7 @@ html, body {
     font-family: 'Open Sans', sans-serif!important;
     background-color: var(--gray-high)!important;
     color: var(--gray-low)!important;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .hr {
@@ -68,7 +73,7 @@ a, router-link {
     text-decoration: none;
     color: var(--gray-low)!important;
     transition: 0.2s;
-    line-height: .8rem;
+    line-height: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -90,6 +95,12 @@ a:hover, router-link:hover {
     }
 }
 
+@media (max-width: 600px) {
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+}
+
 i {
     color: var(--gray-low);
     text-decoration: none;
@@ -103,10 +114,16 @@ p {
     font-size: .9rem;
 }
 
-.avatar-p, .avatar-pp {
+.avatar-g, .avatar-p, .avatar-pp {
     border-radius: 50%;
     object-fit: cover;
 }
+
+.avatar-g  {
+    width: 130px;
+    height: 130px;
+}
+
 
 .avatar-p {
     width: 50px;
@@ -207,7 +224,8 @@ p {
     justify-content: center;
     align-items: center;
     transition: 0.3s width;
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .inner-container {
@@ -216,8 +234,10 @@ p {
     flex-direction: column;
     align-items: center;
     margin: auto;
-    width: 45vw;
+    width: 50%;
+    max-width: 1500px;
     height: 100%;
+    transition: 0.3s width;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -247,6 +267,23 @@ p {
 @media (max-width: 850px) {
     .main-container {
         width: 100vw;
+    }
+}
+
+@media (max-width: 670px) {
+    .inner-container {
+        width: 100%;
+        padding-right: .7rem;
+        padding-left: .7rem;
+    }
+}
+@media (max-width: 420px) {
+    .inner-container {
+        width: 100%;
+        padding-top: 3.8rem;
+    }
+    .hr {
+        margin: .5rem 0;
     }
 }
 

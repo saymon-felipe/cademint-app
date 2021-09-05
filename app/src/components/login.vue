@@ -8,7 +8,7 @@
             <div class="response"></div>
         </form>
         <div class="login-actions">
-            <h6 class="register">Não tem uma conta? <router-link to="/register" id="register">Cadastre-se</router-link></h6>
+            <h6 class="register">Não tem uma conta? <router-link to="/register" id="register"><strong>Cadastre-se</strong></router-link></h6>
             <h6><a href="#">Esqueci minha senha</a></h6>
         </div>
     </div>
@@ -34,6 +34,7 @@ export default {
         flex-direction: column;
         justify-content: center;
         width: 30rem;
+        margin: auto;
         box-shadow: 0 0 10px rgba(0,0,0,0.3);
         padding: 70px 25px;
         margin: 0 15px;
@@ -86,7 +87,7 @@ export default {
     }
 
     #register {
-        margin-top: 5px;
+        margin-top: 2px;
     }
 
     .register {
@@ -113,6 +114,15 @@ export default {
     @media(max-width: 420px) {
         .header-text {
             font-size: 1.3rem;
+        }
+        .login {
+            padding: 35px 10px;
+        }
+        button {
+            font-size: 1rem;
+        }
+        .login-actions h6, .login-actions h6 a {
+            font-size: .8rem;
         }
     }
 </style>

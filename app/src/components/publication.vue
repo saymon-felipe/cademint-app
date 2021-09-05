@@ -180,5 +180,31 @@ export default {
 
     .number-likes-container i, .number-comments-container i {
         margin-right: .5rem;
-    }   
+    }  
+    
+    @media (max-width: 420px) {
+        .publication-informations {
+            margin: .6rem!important;
+            width: 75%;
+            font-size: .9rem;
+        }
+        .publication-text p {
+            font-size: .8rem;
+        }
+        .publication-like i, .publication-like h6, .publication-comment i, .publication-comment h6, .publication-share i, .publication-share h6 {
+            font-size: .8rem;
+        }
+    }
+
+    @media (max-width: 350px) {
+        .publication-like h6, .publication-comment h6, .publication-share h6 {
+            display: none;
+        }
+        .publication-like i, .publication-comment i, .publication-share i {
+            font-size: 1rem;
+        }
+        .analytics i, .analytics h6 {
+            font-size: .8rem;
+        }
+    }
 </style>

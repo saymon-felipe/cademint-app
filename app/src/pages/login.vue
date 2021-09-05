@@ -1,18 +1,18 @@
 <template>
     <loginTemplate>
-        <loginContainer />
+        <loginComponent />
     </loginTemplate>
 </template>
 
 <script>
 import loginTemplate from "../templates/loginTemplate.vue"
-import loginContainer from "../components/loginContainer.vue"
+import loginComponent from "../components/login.vue"
 
 export default {
     name: "login",
     components: {
         loginTemplate,
-        loginContainer
+        loginComponent
     }
 }
 </script>

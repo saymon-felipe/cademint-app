@@ -36,9 +36,6 @@ export default {
             var button = $("#publish");
             $("#write-publication").val();
             $("#write-publication").val("");
-            setTimeout(() => {
-                $(".new-publication-header").css("align-items", "center");
-            }, 300);
             $("#write-publication").css("height", "38.78px");
             $("#write-publication").attr("rows", 1);
             button.removeClass();
@@ -87,9 +84,8 @@ export default {
     }
 
     .new-publication-header {
-        width: 80%;
+        width: 100%;
         display: flex;
-        align-items: center;
         justify-content: space-around;
     }
 
@@ -99,11 +95,16 @@ export default {
         background: var(--gray-high);
         border-radius: 10px;
         padding: .4rem;
+        width: 100%;
     }
 
     .new-publication-text {
         display: flex;
         align-items: flex-end;
+        margin-left: 1rem;
+        width: 100%;
+        margin-top: auto;
+        margin-bottom: auto;
     }
 
     #publish {
@@ -160,5 +161,17 @@ export default {
     
     .add-video i {
         color: var(--blue)
+    }
+
+    @media (max-width: 420px) {
+        .add-image i, .add-video i {
+            font-size: 1.3rem;
+        }
+        .new-publication-header textarea {
+            padding: .2rem .5rem;
+        }
+        .new-publication {
+            margin-top: 1rem;
+        }
     }
 </style>

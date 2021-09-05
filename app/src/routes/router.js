@@ -3,8 +3,8 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import myFeed from '../pages/my-feed.vue'
-import profile from '../pages/profile.vue'
+import feed from '../pages/feed.vue'
+import profilePage from '../pages/profilePage.vue'
 import myRooms from '../pages/my-rooms.vue'
 import meeting from '../pages/meeting.vue'
 import login from '../pages/login.vue'
@@ -13,15 +13,15 @@ import register from '../pages/register.vue'
 const routes = [
     {
         path: '/',
-        component: myFeed
+        component: feed
     },
     {
         path: '/feed',
-        component: myFeed
+        component: feed
     },
     {
         path: '/profile/:id',
-        component: profile
+        component: profilePage
     },
     {
         path: '/my-rooms',

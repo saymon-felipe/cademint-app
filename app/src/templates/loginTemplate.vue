@@ -33,6 +33,7 @@ export default {
             background-size: 250px;
         }
     }
+    
     @media (max-width: 460px) {
         .login-container {
             background-size: 200px;

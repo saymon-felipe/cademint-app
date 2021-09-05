@@ -145,8 +145,10 @@ setInterval(() => {
 
   //Encontrar a posição on ranking
   getUserRankingPosition();
-}, 1000);
 
+  $(".avatar-g").addClass(arrayRankingReturnedSelf[0]); //usuário atual virá da api
+
+}, 1000);
 
 
 //Função converte a posição no ranking em numero para classes
@@ -341,9 +343,6 @@ setInterval(executePublications, 1000);
 $(document).on("click", e => {
   var target = $(e.target);
   if(!target.closest('.new-publication-text').length && $('.new-publication-text').is(":visible")) {
-    setTimeout(() => {
-    $(".new-publication-header").css("align-items", "center");  
-    }, 300);
     $("#write-publication").css("height", "38.78px");
     $("#write-publication").attr("rows", 1);
     $("#publish").hide();

@@ -85,7 +85,7 @@ export default {
         min-width: 300px;
         max-width: 500px;
         height: 100vh;
-        z-index: 0;
+        z-index: 3;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -93,6 +93,7 @@ export default {
         border: 1px solid var(--gray-medium);
         padding: 0 10px;
         background: var(--gray-high);
+        overflow-y: scroll;
     }
 
     @media (max-width: 720px) {
@@ -119,6 +120,7 @@ export default {
         color: var(--gray-low);
     }
     .input-div input {
+        width: 100%;
         border-radius: 10px;
         border: 1px solid var(--gray-medium);
         position: relative;

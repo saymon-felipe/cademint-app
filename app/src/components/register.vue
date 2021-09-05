@@ -10,7 +10,7 @@
             <div class="response"></div>
         </form>
         <div class="login-actions">
-            <h6 class="register">Já é cadastrado? <router-link to="/login" id="login">Faça login</router-link></h6>
+            <h6 class="register">Já é cadastrado? <router-link to="/login" id="login"><strong>Faça login</strong></router-link></h6>
             <h6><a href="#">Esqueci minha senha</a></h6>
         </div>
     </div>
@@ -123,6 +123,15 @@ export default {
     @media(max-width: 420px) {
         .header-text {
             font-size: 1.3rem;
+        }
+        .login {
+            padding: 35px 10px;
+        }
+        button {
+            font-size: 1rem;
+        }
+        .login-actions h6, .login-actions h6 a {
+            font-size: .8rem;
         }
     }
 </style>

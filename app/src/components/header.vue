@@ -43,7 +43,7 @@
                     </li>
                     <li class="nav-item">
                         <i class="fas fa-user-alt menu-icon"></i>
-                        <router-link to="/profile" class="nav-link" v-on:mouseenter.native="animationHover(1)" v-on:mouseout.native="resetAnimation()">Meu perfil <i class="fas fa-chevron-left arrow-menu"></i></router-link>
+                        <router-link :to="'/profile/' + userId" class="nav-link" v-on:mouseenter.native="animationHover(1)" v-on:mouseout.native="resetAnimation()">Meu perfil <i class="fas fa-chevron-left arrow-menu"></i></router-link>
                     </li>
                     <li class="nav-item">
                         <i class="fas fa-users menu-icon"></i>
@@ -99,19 +99,24 @@ export default {
             if (this.hasOpened == 1) {
                 $('.chat').css("transform", "translateX(100vw)");
                 this.hasOpened = 0;
+                $(".overlayChat").hide();
             } else {
                 $('.chat').css("transform", "translateX(0)");
                 this.hasOpened = 1;
+                $(".overlayChat").show();
             }
         },
         closeChat() {
             $('.chat').css("transform", "translateX(100vw)");
             this.hasOpened = 0;
+            $(".overlayChat").hide();
         }
-    }
+    },
+    props: ['userId']
 }
 </script>
 <style scoped>
+
     .header-mobile {
         font-size: 1.5rem;
         color: var(--gray-low);
@@ -140,14 +145,23 @@ export default {
         width: 100vw;
         height: 100vh;
         display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 2;
     }
     @media (max-width: 850px) {
         .menu-chat-icon{
             display: flex;
             align-items: center;
         }
-        .overlayChat {
-            display: block;
+    }
+    @media (max-width: 420px) {
+        .menu-chat-icon{
+            font-size: 1.3rem;
+        }
+        .menu-mobile-icons {
+            font-size: 1.3rem;
         }
     }
     @media (max-width: 270px) {
@@ -171,6 +185,12 @@ export default {
         z-index: 999;
         transition: 0.4s transform;
         transform: translateX(-500px);
+    }
+
+    @media (max-width: 720px) {
+        #lateral-menu {
+            overflow-y: scroll;
+        }
     }
 
     #menu-hamburguer {

@@ -127,7 +127,7 @@ export default {
     }
 
     .user-comment {
-        margin-top: .3rem;
+        margin: .3rem 0;
     }
 
     .comment-like, .comment-reply {
@@ -143,5 +143,19 @@ export default {
     .reply-comment {
         max-width: 320px;
         margin-left: 1rem;
+    }
+
+    @media (max-width: 420px){
+        .comment-header h6 {
+            font-size: .9rem;
+        }
+        h6.user-name-comment {
+            font-size: .8rem;
+        }
+        .comment-text {
+            font-size: .8rem;
+        }.user-comment-header-text i {
+            font-size: .9rem;
+        }
     }
 </style>
