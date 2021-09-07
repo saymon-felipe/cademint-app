@@ -119,27 +119,7 @@ export default {
         font-size: 1.3rem;
         color: var(--gray-low);
     }
-    .input-div input {
-        width: 100%;
-        border-radius: 10px;
-        border: 1px solid var(--gray-medium);
-        position: relative;
-        left: 8px;
-        padding: 3px 15px;
-    }
-    .input-div input::placeholder {
-        font-style: italic;
-        font-size: 1rem;
-    }
-    .input-div {
-        margin-top: 1.2rem;
-        display: flex;
-        align-items: center;
-    }
-    .input-div i {
-        position: relative;
-        right: 20px;
-    }
+    
     @media (max-width: 850px) {
         .chat {
             transform: translateX(100vw);
@@ -163,36 +143,12 @@ export default {
         cursor: pointer;
     }
 
-    .container-photo {
-        display: flex;
-        align-items: flex-end;
-    }
-
-        .onlineOffline {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 3px solid var(--gray-high);
-            position: relative;
-            right: 20px;
-        }
-
     .container-user-text {
         position: relative;
         bottom: 8px;
         left: -8px;
         width: 100%;
         cursor: pointer;
-    }
-
-    .user-name-others {
-        font-size: 1.1em;
-        font-weight: 600;
-    }
-
-    .user-status {
-        font-size: .8em;
-        font-style: italic;
     }
 
     .container-user-text h6.last-message {
@@ -223,11 +179,6 @@ export default {
         .header-chat h4 {
             font-size: 1rem;
         }
-        .container-photo::after {
-            width: 15px;
-            height: 15px;
-            border: 2px solid var(--gray-high);
-        }
         .user-name-others {
             font-size: .9em;
         }
@@ -255,6 +206,22 @@ export default {
         height: 65px;
         border-radius: 50%;
         object-fit: cover;
+    }
+
+    /* STATUS */
+
+    .user-status {
+        width: calc(100% - 4rem);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .last-message {
+        width: calc(100% - 7rem);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 

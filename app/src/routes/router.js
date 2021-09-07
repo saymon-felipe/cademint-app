@@ -9,11 +9,12 @@ import myRooms from '../pages/my-rooms.vue'
 import meeting from '../pages/meeting.vue'
 import login from '../pages/login.vue'
 import register from '../pages/register.vue'
+import profileTimeLine from '../components/profileTimeLine.vue'
 
 const routes = [
     {
         path: '/',
-        component: feed
+        component: login
     },
     {
         path: '/feed',
@@ -21,7 +22,12 @@ const routes = [
     },
     {
         path: '/profile/:id',
-        component: profilePage
+        component: profilePage,
+        children: [
+            {
+                path: "/timeline", component: profileTimeLine
+            }
+        ]
     },
     {
         path: '/my-rooms',

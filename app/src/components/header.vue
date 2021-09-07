@@ -43,7 +43,7 @@
                     </li>
                     <li class="nav-item">
                         <i class="fas fa-user-alt menu-icon"></i>
-                        <router-link :to="'/profile/' + userId" class="nav-link" v-on:mouseenter.native="animationHover(1)" v-on:mouseout.native="resetAnimation()">Meu perfil <i class="fas fa-chevron-left arrow-menu"></i></router-link>
+                        <router-link :to="'/profile/' + userId + '/'" class="nav-link" v-on:mouseenter.native="animationHover(1)" v-on:mouseout.native="resetAnimation()">Meu perfil <i class="fas fa-chevron-left arrow-menu"></i></router-link>
                     </li>
                     <li class="nav-item">
                         <i class="fas fa-users menu-icon"></i>

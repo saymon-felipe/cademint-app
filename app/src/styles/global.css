@@ -291,3 +291,54 @@ p {
     font-size: .9em;
     margin: 0;
 }
+
+/* ONLINE OFFLINE, CONTAINER PHOTO */
+
+.onlineOffline {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid var(--gray-high);
+    position: relative;
+    right: 20px;
+}
+
+.container-photo {
+    display: flex;
+    align-items: flex-end;
+    
+} 
+
+/* INPUTS */
+
+.input-div input {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--gray-medium);
+    position: relative;
+    left: 8px;
+    padding: 3px 15px;
+}
+.input-div input::placeholder {
+    font-style: italic;
+    font-size: 1rem;
+}
+.input-div {
+    margin-top: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+.input-div i {
+    position: relative;
+    right: 20px;
+}
+
+.user-name-others {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.user-status {
+    font-size: .8em;
+    font-style: italic;
+}

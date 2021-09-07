@@ -210,9 +210,6 @@ getFriendRankingPosition();
 //Funções para funcionarem dentro do chat
 function executeChat() {
 
-  //Descobrir a largura da tela
-  var windowWidth = $(window).width();
-
   //Testa se o usuário está online
   if (user002.is_online) {
     if (document.querySelector(".onlineOffline").classList == ".onlineOffline offline") {
@@ -230,34 +227,8 @@ function executeChat() {
     }
   }
 
-  if ($(".chat").length) {
-
-  //Definir quantidade de caracteres do status conforme largura da tela
-  var amountStatusString;
-  if (windowWidth <= 520) {
-    amountStatusString = 20;
-  } else if (windowWidth > 520 && windowWidth < 1620) {
-    amountStatusString = 26;
-  } else if (windowWidth > 1620 && windowWidth < 1850) {
-    amountStatusString = 35;
-  } else if (windowWidth > 1850 && windowWidth < 2180){
-    amountStatusString = 40;
-  } else {
-    amountStatusString = 55;
-  }
-
-  //Definir quantidade de caracteres da última mensagem conforme largura da tela
-  var amountLastMessageString;
-  if (windowWidth > 0 && windowWidth < 1740) {
-    amountLastMessageString = 15;
-  } else if (windowWidth > 1740 && windowWidth < 2040) {
-    amountLastMessageString = 30;
-  } else {
-    amountLastMessageString = 40;
-  }
-
   //Colocar cor do avatar e do badge conforme o ranking de interação
-  if ($(".container-user-chat").length) {
+  if ($(document).length) {
     var arrayRankingReturnedFriend = findRankingPosition(user002.ranking_position);
     $("#user-001 .avatar-p").addClass(arrayRankingReturnedFriend[0]); //usuário atual virá da api
 
@@ -267,51 +238,26 @@ function executeChat() {
     //Coloca a letra preta nos badges conforme cor do background
     //Amigo
     $(".user-card .label-ranking-interaction").css("color", testIfColorBlack(arrayRankingReturnedFriend[1]));
-  }
-
-  //Inserção dinâmica do nome do usuário (amigo)
-  $(".user-name-others").html(user002.name);
-
-  //Exibir status conforme largura da tela
-
-  //Status virá da api
-  var formatedStatusString = '';
-  for (let i in user002.status_text) {
-    if (i < amountStatusString) {
-      formatedStatusString += user002.status_text[i];
-    } else {
-      formatedStatusString += "..."
-      break;
-    }
-  }
-  $(".user-status").html(formatedStatusString);
-
-  //Exibir status completo
-  $(".user-status-complete").html(user002.status_text);
-
-  //Exibir ultima mensagem conforme largura da tela
-
-  //Status virá da api
-  var lastMessage = "Então dai você vem na minha casa pra gente poder estudar aquela questão lá"; //Pensar na lógica que irá retornar as mensagens
-  var formatedLastMessage = '';
-  for (let i in lastMessage) {
-    if (i > amountLastMessageString) {
-      formatedLastMessage += "..."
-      break;
-    } else {
-      formatedLastMessage += lastMessage[i];
-    }
-  }
-  $(".last-message").html(formatedLastMessage);
-
-  //Exibir o tempo da última mensagem
-  var timeLastMessage = "Há 1 hora"; //Valor virá da api
-  $(".time-last-message").html(timeLastMessage);
-
-  //Exibe a idade do usuário
-  var userIdade = user002.age + " anos"; //Idade virá da api
-  $(".user-idade").html(userIdade);
   
+    //Inserção dinâmica do nome do usuário (amigo)
+    $(".user-name-others").html(user002.name);
+  }
+
+  if ($(".chat").length) {
+    var lastMessage = "Então dai você vem na minha casa pra gente poder estudar aquela questão lá"; //Pensar na lógica que irá retornar as mensagens
+    //Exibir status
+    $(".user-status").html(user002.status_text);
+
+    //Última mensagem
+    $(".last-message").html(lastMessage);
+
+    //Exibir o tempo da última mensagem
+    var timeLastMessage = "Há 1 hora"; //Valor virá da api
+    $(".time-last-message").html(timeLastMessage);
+
+    //Exibe a idade do usuário
+    var userIdade = user002.age + " anos"; //Idade virá da api
+    $(".user-idade").html(userIdade);
 }}
 executeChat();
 setInterval(executeChat, 1000);
@@ -348,6 +294,24 @@ $(document).on("click", e => {
     $("#publish").hide();
   }  
 });
+
+//Preservar o scroll atual da pagina
+var scrollPosition = localStorage.getItem('posicaoScroll');
+
+// Se existir uma opção salva seta o scroll nela
+if(scrollPosition) {
+    setTimeout(function() {
+        window.scrollTo(0, scrollPosition);
+    }, 1);
+}
+
+// Verifica mudanças no Scroll e salva no localStorage a posição
+setInterval(() => {
+  document.querySelector(".inner-container").onscroll = () => {
+    scrollPosition = window.scrollY;
+    localStorage.setItem('scrollPosition', JSON.stringify(scrollPosition));
+  }
+}, 1);
 
 
 
