@@ -31,7 +31,7 @@
                     <profileTimeLine v-if="timeLine == 1" />
                     <profileAbout v-if="about == 1" userBirthday="14/09/2001" relationship="solteiro" schooling="Unicesumar" schoolingStatus="Estuda" telephone="(43) 9 9635-2536" from="Curitiba" liveIn="São João do Ivaí" />
                     <profileFriends v-if="friends == 1" userBirthday="22/12/2004" schoolingStatus="estuda" schooling="Unicesumar" telephone="41 9 8705-3290" from="Curitiba" liveIn="Curitiba"/>
-                    <!--<profilePhotos v-if="this.photos == 1" />-->
+                    <profilePhoto v-if="photos == 1" />
                 </div>
             </div>
         </div>
@@ -48,6 +48,7 @@ import headerOptions from '../components/headerOptions.vue'
 import profileTimeLine from '../components/profileTimeLine.vue'
 import profileAbout from '../components/profileAbout.vue'
 import profileFriends from '../components/profileFriends.vue'
+import profilePhoto from '../components/profilePhoto.vue'
 import $ from 'jquery'
 
 export default {
@@ -56,7 +57,8 @@ export default {
         headerOptions,
         profileTimeLine,
         profileAbout,
-        profileFriends
+        profileFriends,
+        profilePhoto
     },
     data() {
         return {
@@ -313,6 +315,7 @@ export default {
         margin-top: 2rem;
         max-height: 30rem;
         overflow-y: scroll;
+        overflow-x: hidden;
     }
 
     .profile-menu-item {

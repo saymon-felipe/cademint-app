@@ -1,7 +1,7 @@
 <template>
     <div>
         <siteTemplate>
-            <videoMeeting />
+            <videoMeeting userInConference="2" participantsOffline="3" />
         </siteTemplate>
     </div>
 </template>

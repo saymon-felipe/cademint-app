@@ -114,7 +114,7 @@ p {
     font-size: .9rem;
 }
 
-.avatar-g, .avatar-p, .avatar-pp {
+.avatar-g, .avatar-p, .avatar-pp, .avatar-xp {
     border-radius: 50%;
     object-fit: cover;
 }
@@ -135,10 +135,28 @@ p {
     height: 40px;
 }
 
+.avatar-xp {
+    width: 30px;
+    height: 30px;
+}
+
 @media (max-width: 720px) {
     .avatar-p {
         width: 43px;
         height: 43px;
+    }
+    .avatar-g  {
+        width: 100px;
+        height: 100px;
+    }
+    .avatar-pp {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .avatar-xp {
+        width: 20px;
+        height: 20px;
     }
 }
 
