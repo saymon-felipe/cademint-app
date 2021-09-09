@@ -32,23 +32,11 @@
                         <div class="microphone-more-options" v-on:click="microphoneMoreOptions()">
                             <i class="fas fa-caret-down"></i>
                         </div>
-                        <div class="more-options-container">
+                        <div class="more-options-container more-options-mic">
                             <div class="more-options-inner">
-                                <div class="mic-list" id="mic1"> 
-                                    <i class="fas fa-check"></i>
-                                    <p>Microfone 1 teste teste teste</p>
-                                </div>
-                                <div class="mic-list" id="mic2"> 
-                                    <p>Microfone 2</p>
-                                </div>
-                                <div class="mic-list" id="mic3"> 
-                                    <p>Microfone 3</p>
-                                </div>
-                                <div class="mic-list" id="mic3"> 
-                                    <p>Microfone 3</p>
-                                </div>
-                                <div class="mic-list" id="mic3"> 
-                                    <p>Microfone 3</p>
+                                <div class="mic-list" :id="'mic' + mic.id" v-for="mic in mics" v-bind:key="mic.id" v-on:click="selectMicrophone(mic.id)"> 
+                                    <i class="fas fa-check select-microphone"></i>
+                                    <p>{{ mic.name }}</p>
                                 </div>
                             </div>
                         </div>
@@ -58,13 +46,18 @@
                         <div class="video-more-options" v-on:click="cameraMoreOptions()">
                             <i class="fas fa-caret-down"></i>
                         </div>
-                        <div class="more-options-container">
-                            teste
+                        <div class="more-options-container more-options-cam">
+                            <div class="more-options-inner">
+                                <div class="cam-list" :id="'cam' + cam.id" v-for="cam in cams" v-bind:key="cam.id" v-on:click="selectCamera(cam.id)"> 
+                                    <i class="fas fa-check select-camera"></i>
+                                    <p>{{ cam.name }}</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="control-item videofilter">
                             <i class="fas fa-magic"></i>
                         </div>
-                        <div class="control-item add-media">
+                        <div class="control-item add-media" v-on:click="openConfigurations()">
                             <i class="fas fa-film"></i>
                         </div>
                         <div class="control-item mute">
@@ -79,6 +72,36 @@
                     </div>
                     <div class="my-video">
                         <img src="../assets/img/test/img-user-test-1.jpg" class="self-meeting">
+                    </div>
+                    
+                </div>
+                <div class="configuration-other-controls">
+                    <div class="configuration-others-header">
+                        <div class="close-configurations" v-on:click="closeConfigurations()">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
+                    <div class="configuration-other-container"> 
+                        <div class="video-filter-configuration"><!-- Future version -->
+
+                        </div>
+                        <div class="configuration-add-media" v-on:click="addMedia()" v-if="addMediaOpened == 1">
+                            <div class="url-video">
+                                <div class="url-video-icon">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </div>
+                                <input type="text" name="url-video" id="url-video" placeholder="Url do video" v-on:keyup="showAddVideoButton()">
+                                <button class="add-video-button" v-on:click="searchLinkToAddMedia()">Adicionar video</button>
+                            </div>
+                            <iframe controls="false" width="400" height="200" :src="'https://www.youtube.com/embed/' + videoId" class="play-video"></iframe>
+                            <div class="response"></div>
+                        </div>
+                        <div class="configuration-more-options">
+
+                        </div>
+                        <div class="configuration">
+
+                        </div>
                     </div>
                 </div>
                 <div class="room-options">
@@ -96,6 +119,52 @@
                     </button>
                 </div>
             </div>
+            <div class="video-meeting-footer">
+                <div class="chat-box-body">
+                    <div class="message message-send">
+                        <div class="message-body">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                            Modi commodi aut, maxime obcaecati sunt fugiat odit voluptatem alias
+                            <div class="message-utilities">
+                                <h6 class="message-send-time">24/08/2021 17:33</h6>
+                                <i class="fas fa-reply icon-clicable" v-on:click="replyMessage()"></i>
+                            </div>
+                        </div>
+                        <div class="message-triangle message-send-triangle"></div>
+                    </div>
+                    <div class="message message-received">
+                        <div class="message-body">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                            Modi commodi aut, maxime obcaecati sunt fugiat odit voluptatem alias
+                            <div class="message-utilities">
+                                <h6 class="message-send-time">24/08/2021 17:33</h6>
+                                <i class="fas fa-reply icon-clicable" v-on:click="replyMessage()"></i>
+                            </div>
+                        </div>
+                        <div class="message-triangle message-received-triangle"></div>
+                    </div>
+                    <div class="message message-send">
+                        <div class="message-body">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                            Modi commodi aut, maxime obcaecati sunt fugiat odit voluptatem alias
+                            <div class="message-utilities">
+                                <h6 class="message-send-time">24/08/2021 17:33</h6>
+                                <i class="fas fa-reply icon-clicable" v-on:click="replyMessage()"></i>
+                            </div>
+                        </div>
+                        <div class="message-triangle message-send-triangle"></div>
+                    </div>
+                </div>
+                <div class="chat-box-footer">
+                    <form action="send-message" class="message-input">
+                        <input type="text" name="send-message" id="send-message" placeholder="Digite uma mensagem">
+                        <div class="input-icons">
+                            <i class="fas fa-paperclip"></i>
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
+                    </form>                
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -108,7 +177,45 @@ export default {
     name: 'videoMeeting',
     data() {
         return {
-            video: this.$route.params.video
+            videoId: '',
+            addMediaOpened: 1,
+            video: this.$route.params.video,
+            mics: [
+                {
+                    name: "Microfone 1",
+                    id: 1
+                },
+                {
+                    name: "Microfone 2",
+                    id: 2
+                },
+                {
+                    name: "Microfone 3",
+                    id: 3
+                },
+                {
+                    name: "Microfone 4",
+                    id: 4
+                },
+            ],
+            cams: [
+                {
+                    name: "Camera 1",
+                    id: 1
+                },
+                {
+                    name: "Camera 2",
+                    id: 2
+                },
+                {
+                    name: "Camera 3",
+                    id: 3
+                },
+                {
+                    name: "Camera 4",
+                    id: 4
+                },
+            ]
         }
     },
     components: {
@@ -153,10 +260,82 @@ export default {
             $("#cam").toggleClass("fa-video-slash");
         },
         microphoneMoreOptions() {
-            console.log("microfone mais opções");
+            var optionsMic = $(".more-options-mic");
+            var optionsCam = $(".more-options-cam");
+
+            //Reset das opções
+            optionsCam.removeClass("d-flex");
+            optionsCam.addClass("d-none");
+
+            if (optionsMic.hasClass("d-flex")) {
+                optionsMic.removeClass("d-flex");
+                optionsMic.addClass("d-none");
+            } else {
+                optionsMic.addClass("d-flex");
+            }  
         },
         cameraMoreOptions() {
-            console.log("camera mais opções");
+            var optionsMic = $(".more-options-mic");
+            var optionsCam = $(".more-options-cam");
+
+            //Reset das opções
+            optionsMic.removeClass("d-flex");
+            optionsMic.addClass("d-none");
+
+            if (optionsCam.hasClass("d-flex")) {
+                optionsCam.removeClass("d-flex");
+                optionsCam.addClass("d-none");
+            } else {
+                optionsCam.addClass("d-flex");
+            }  
+        },
+        selectMicrophone(id) {
+            $(".select-microphone").hide();
+            $("#mic" + id + " .select-microphone").show();
+
+            //Lógica para ativar o microfone selecionado
+        },
+        selectCamera(id) {
+            $(".select-camera").hide();
+            $("#cam" + id + " .select-camera").show();
+
+            //Lógica para ativar a camera selecionado
+        },
+        closeConfigurations() {
+            $(".configuration-other-controls").css("display", "none");
+        },
+        openConfigurations() {
+            $(".configuration-other-controls").css("display", "flex");
+        },
+        addMedia() {
+            this.openConfigurations();
+            this.addMediaOpened = 1;
+        },
+        searchLinkToAddMedia() {
+            var input = $("#url-video").val();
+            var video = $(".play-video");
+            if (input != '' && input.length > 32) {
+                $(".response").html("");
+                this.videoId = '';
+                for (let i = 32; i <= 42; i++) {
+                    this.videoId += input[i];
+                }
+                $("#url-video").val("");
+                $(".add-video-button").hide();
+                $(".play-video").show();
+            } else {
+                if (!video.is(":visible")) {
+                    $(".response").html("Há algo de errado, tente novamente!");
+                }
+            }
+        },
+        showAddVideoButton() {
+            if (!$("#url-video").val() == '') {
+                $(".add-video-button").show();
+            } else {
+                $(".add-video-button").hide();
+            }
+            
         }
     }
 }
@@ -224,7 +403,7 @@ export default {
 
     .video {
         width: 100%;
-        margin-top: 1rem;
+        margin: 1rem 0;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -259,7 +438,6 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-around;
-        margin-top: 1rem;
     }
 
     .room-options button {
@@ -316,6 +494,7 @@ export default {
         border-radius: 10px;
         order: -1;
         z-index: 1;
+        user-select: none;
     }
 
     .meeting-controls i {
@@ -383,14 +562,19 @@ export default {
     .more-options-container {
         background: rgba(0,0,0,0.7);
         border-radius: 10px;
-        margin-top: -2.7rem;
-        margin-right: -16rem;
         color: var(--white);
-        display: flex;
+        display: none;
         flex-direction: column;
         width: 12rem;
         max-height: 90px;
         overflow: hidden;
+        position: absolute;
+        margin-right: -16rem;
+        margin-top: -.7rem;
+    }
+
+    .more-options-cam {
+        margin-top: 2rem;
     }
 
     .more-options-inner {
@@ -398,20 +582,162 @@ export default {
         overflow-y: scroll;
     }
 
-    .mic-list {
+    .mic-list, .cam-list {
         display: flex;
         align-items: center;
         width: 100%;
+        cursor: pointer;
+        padding-left: .3rem;
     }
-    .mic-list i {
+
+    .mic-list:hover, .cam-list:hover {
+        background: rgba(255,255,255,0.2);
+    }
+
+
+    .mic-list i, .cam-list i {
         font-size: .9rem;
     }
 
-    .mic-list p {
+    .mic-list p, .cam-list p {
         margin: 0;
         margin-left: .7rem;
         white-space: nowrap;
         text-overflow: clip;
         overflow: hidden;
+    }
+
+    .select-microphone, .select-camera {
+        display: none;
+    }
+
+    /* CONFIGURATIONS */
+
+    .configuration-other-controls {
+        width: 90%;
+        height: 45vh;
+        margin-top: -49vh;
+        margin-bottom: 1.4rem;
+        background: rgba(0,0,0,0.9);
+        border-radius: 10px;
+        position: relative;
+        z-index: 2;
+        padding: .8rem;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .configuration-other-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .configuration-other-controls i {
+        color: var(--white);
+    }
+
+    .play-video {
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+
+    .configuration-add-media {
+        width: 100%;
+        height: 100%;
+    }
+
+    .configuration-add-media iframe {
+        border: none;
+        border-radius: 15px;
+    }
+
+    .configuration-others-header {
+        width: 100%;
+        margin-top: -.2rem;
+        margin-bottom: .4rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .url-video {
+        display: flex;
+        align-items: center;
+        margin-right: 1rem;
+        margin-top: -2rem;
+        margin-bottom: .2rem;
+    }
+
+    .close-configurations {
+        padding: 0 .3rem;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 1;
+    }
+    .close-configurations:hover {
+        background: rgba(255,255,255,0.2);
+    }
+
+    .url-video i {
+        font-size: 1.2rem;
+        margin-right: 1rem;
+    }
+
+    .url-video input {
+        padding: .3rem;
+        border: none;
+        border-radius: 10px;
+    }
+    .url-video input::placeholder {
+        margin-left: 1rem;
+    }
+
+    .add-video-button {
+        background: var(--blue);
+        border: none;
+        border-radius: 10px;
+        color: var(--white);
+        padding: .4rem;
+        font-size: .9rem;
+        margin-left: .8rem;
+        display: none;
+    }
+    .add-video-button:hover {
+        background: var(--blue-high);
+    }
+    .add-video-button:active {
+        background: var(--blue-low);
+    }
+
+    .response {
+        color: var(--white);
+        width: 100%;
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    #send-message {
+        margin-right: -3.5rem;
+    }
+
+    .input-icons {
+        margin-left: -2rem;
+    }
+
+        .input-icons i {
+            margin: 0 .5rem;
+            cursor: pointer;
+        }
+
+    .chat-box-body {
+        height: 340px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        padding-left: .5rem 0 .5rem 1rem;
     }
 </style>

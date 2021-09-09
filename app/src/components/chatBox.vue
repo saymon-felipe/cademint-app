@@ -86,8 +86,8 @@ export default {
 
 <style scoped>
 .chat-box {
-        min-width: 290px;
-        max-width: 330px;
+        min-width: 280px;
+        max-width: 300px;
         height: 470px;
         margin: auto;
         position: fixed;
@@ -141,103 +141,6 @@ export default {
         display: flex;
         flex-direction: column-reverse;
         padding-left: .5rem 0 .5rem 1rem;
-    }
-
-    .chat-box-footer {
-        height: 2.55rem;
-        margin-top: .8rem;
-        display: flex;
-        justify-content: center;
-    }
-
-    .message-input {
-        width: 95%;
-        height: 90%;
-        padding: 0 .5rem;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-    }
-    .chat-box-footer input {
-        width: 100%;
-        height: 100%;
-        border: 1px solid var(--gray-medium);
-        border-radius: 10px;
-    }
-    .chat-box-footer input::placeholder {
-        position: relative;
-        left: 2rem
-    }
-
-    .message {
-        padding: .7rem .7rem 1.5rem .7rem;
-        margin-top: 1rem;
-        width: 90%;
-        font-size: .9rem;
-        border-radius: 7px;
-        display: flex;
-        justify-content: space-between;
-        position: relative;
-    }
-    .message-send {
-        background: var(--gray-medium);
-        right: -10px;
-    }
-    .message-received {
-        background: var(--green);
-        left: 15px;
-    }
-    .message-triangle {
-        content: '';
-        width: 0;
-        height: 0; 
-        overflow: hidden;
-        position: relative;
-    }
-    .message-send-triangle {
-        border-top: 5px solid transparent;
-        border-bottom:5px solid transparent;
-        border-left: 9px solid var(--gray-medium);
-        right: -19px;
-    }
-    .message-received-triangle {
-        border-top: 5px solid transparent;
-        border-bottom:5px solid transparent;
-        border-right: 9px solid var(--green);
-        order: -1;
-        left: -19px;
-    }
-
-    .message-send-time {
-        font-size: .7rem;
-        font-weight: 600;
-    }
-    
-    .message-utilities {
-        position: relative;
-        bottom: -.8rem;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    @media (max-width: 720px) {
-        .chat-box {
-            min-width: 50vw;
-            height: 400px;
-        }
-        .chat-box-body {
-            height: 278px;
-        }
-    }
-    @media (max-width: 520px) {
-        .chat-box {
-            min-width: 85vw;
-        }
-        .chat-box-footer input::placeholder {
-            font-size: .8rem;
-        }
     }
 
     .microphone-icon {

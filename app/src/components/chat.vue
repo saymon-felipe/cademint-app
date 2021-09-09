@@ -94,6 +94,7 @@ export default {
         padding: 0 10px;
         background: var(--gray-high);
         overflow-y: scroll;
+        overflow-x: hidden;
     }
 
     @media (max-width: 720px) {

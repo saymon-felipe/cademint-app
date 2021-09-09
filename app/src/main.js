@@ -285,13 +285,21 @@ function executePublications() {
 
 setInterval(executePublications, 1000);
 
-//Resetar textarea de nova publicação quando clicar fora da div
+
 $(document).on("click", e => {
+
+  //Resetar textarea de nova publicação quando clicar fora da div
   var target = $(e.target);
   if(!target.closest('.new-publication-text').length && $('.new-publication-text').is(":visible")) {
     $("#write-publication").css("height", "38.78px");
     $("#write-publication").attr("rows", 1);
     $("#publish").hide();
+  }  
+
+  //Resetar moreoptions de video e audio quando clicar fora da div
+  if(!target.closest('.meeting-controls').length && $('.meeting-controls').is(":visible")) {
+    $(".more-options-container").removeClass("d-flex");
+    $(".more-options-container").addClass("d-none");
   }  
 });
 
