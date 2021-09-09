@@ -1,3 +1,2 @@
 
-*.json
-*.json.gz
+*/app/mode_modules/.cache
