@@ -12,39 +12,63 @@ new Vue({
   render: h => h(App),
 }).$mount('#app')
 
-
-//Função para contagem progressiva do audio
-$(".microphone-icon").on("click", () => {
-  $(".microphone-icon").hide();
-  $(".container-audio-record").show();
-  $("#send-message").attr("placeholder", "");
+var totalSeconds = 0;
+function calcTime(element, timeRange) {
   let second = 0;
   let minute = 0;
-  let totalSeconds = 0;
-  $(".timer-audio").html("00:00");
+  let hour = 0;
   let timerAudio = setInterval(() => {
     second += 1;
     if (second == 60) {
       minute += 1;
       second = 0;
     }
-    totalSeconds += 1;
-    if (totalSeconds >= 5940) {
-      clearInterval(timerAudio);
+    if (minute == 60) {
+      minute = 0;
+      hour += 1;
     }
-    console.log("esta entrando")
-    $(".timer-audio").html(formatTime(minute, second));
+    totalSeconds += 1;
+    if (totalSeconds >= timeRange /*5940*/) {
+      clearInterval(timerAudio);
+      totalSeconds = 0;
+    }
+    $(".time-duration-container").show();
+    $(element).html(formatTime(hour, minute, second));
   }, 1000);
+}
+
+//Função para contagem progressiva do audio
+$(".microphone-icon").on("click", () => {
+  $(".microphone-icon").hide();
+  $(".container-audio-record").show();
+  $("#send-message").attr("placeholder", "");
+  $(".timer-audio").html("00:00");
+  calcTime(".timer-audio", 5490);
 
   //Skip do audio
   $(".skip-audio").on("click", () => {
     $(".container-audio-record").hide();
-    totalSeconds = 5940;
+    totalSeconds = 5490;
     $(".microphone-icon").show();
   });
 });
 
-function formatTime(minute, second) {
+$(".video-meeting").on("click", () => {
+  $(".time-duration-container").show();
+  console.log("entrou")
+  if (totalSeconds == 0) {
+    calcTime(".time-duration", 18000);
+  }
+});
+
+$(".end-meeting").on("click", () => {
+  totalSeconds = 18000;
+  setTimeout(() => {
+    $(".time-duration-container").hide();
+  });
+});
+
+function formatTime(hour, minute, second) {
   let formatedSecond;
   let formatedMinute;
   if (second < 10) {
@@ -57,7 +81,11 @@ function formatTime(minute, second) {
   } else {
     formatedMinute = minute;
   }
-  return formatedMinute + ":" + formatedSecond;
+  if (!hour == 0) {
+    return hour + ":" + formatedMinute + ":" + formatedSecond;
+  } else {
+    return formatedMinute + ":" + formatedSecond;
+  }
 }
 
 
