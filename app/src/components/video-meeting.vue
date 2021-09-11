@@ -29,51 +29,6 @@
                 <div class="video-meeting-body">
                     <div class="video">
                         <img src="../assets/img/test/girl1.png" class="meeting" v-on:click="expandVideoMeeting()">
-                        <div class="meeting-controls">
-                            <div class="control-item microphone" v-on:click="muteUnmute()">
-                                <i class="fas fa-microphone" id="mic"></i>
-                            </div>
-                            <div class="microphone-more-options" v-on:click="microphoneMoreOptions()">
-                                <i class="fas fa-caret-down"></i>
-                            </div>
-                            <div class="more-options-container more-options-mic">
-                                <div class="more-options-inner">
-                                    <div class="mic-list" :id="'mic' + mic.id" v-for="mic in mics" v-bind:key="mic.id" v-on:click="selectMicrophone(mic.id)"> 
-                                        <i class="fas fa-check select-microphone"></i>
-                                        <p>{{ mic.name }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="control-item camera" v-on:click="onOffCamera()">
-                                <i class="fas fa-video" id="cam"></i>
-                            </div>
-                            <div class="video-more-options" v-on:click="cameraMoreOptions()">
-                                <i class="fas fa-caret-down"></i>
-                            </div>
-                            <div class="more-options-container more-options-cam">
-                                <div class="more-options-inner">
-                                    <div class="cam-list" :id="'cam' + cam.id" v-for="cam in cams" v-bind:key="cam.id" v-on:click="selectCamera(cam.id)"> 
-                                        <i class="fas fa-check select-camera"></i>
-                                        <p>{{ cam.name }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--<div class="control-item videofilter">
-                                <i class="fas fa-magic"></i>
-                            </div> Versão futura -->
-                            <div class="control-item add-media" v-on:click="openConfigurations()">
-                                <i class="fas fa-film"></i>
-                            </div>
-                            <div class="control-item mute" v-on:click="muteUnmuteAudio()">
-                                <i class="fas fa-volume-up"></i>
-                            </div>
-                            <!--<div class="control-item more-options">
-                                <i class="fas fa-ellipsis-h"></i>
-                            </div> Versão Futura -->
-                            <div class="control-item config">
-                                <i class="fas fa-cog"></i>
-                            </div>
-                        </div>
                         <div class="lateral-videos">
                             <div class="my-video">
                                 <img src="../assets/img/test/img-user-test-1.jpg" class="self-meeting">
@@ -88,7 +43,53 @@
                                 <img src="../assets/img/test/img-user-test-1.jpg" class="self-meeting">
                             </div>
                         </div>
-                        
+                        <div class="container-controls-hover" v-on:mouseenter="showMeetingControls()" v-on:mouseleave="hideMeetingControls()">
+                            <div class="meeting-controls">
+                                <div class="control-item microphone" v-on:click="muteUnmute()">
+                                    <i class="fas fa-microphone" id="mic"></i>
+                                </div>
+                                <div class="microphone-more-options" v-on:click="microphoneMoreOptions()">
+                                    <i class="fas fa-caret-down"></i>
+                                </div>
+                                <div class="more-options-container more-options-mic">
+                                    <div class="more-options-inner">
+                                        <div class="mic-list" :id="'mic' + mic.id" v-for="mic in mics" v-bind:key="mic.id" v-on:click="selectMicrophone(mic.id)"> 
+                                            <i class="fas fa-check select-microphone"></i>
+                                            <p>{{ mic.name }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-item camera" v-on:click="onOffCamera()">
+                                    <i class="fas fa-video" id="cam"></i>
+                                </div>
+                                <div class="video-more-options" v-on:click="cameraMoreOptions()">
+                                    <i class="fas fa-caret-down"></i>
+                                </div>
+                                <div class="more-options-container more-options-cam">
+                                    <div class="more-options-inner">
+                                        <div class="cam-list" :id="'cam' + cam.id" v-for="cam in cams" v-bind:key="cam.id" v-on:click="selectCamera(cam.id)"> 
+                                            <i class="fas fa-check select-camera"></i>
+                                            <p>{{ cam.name }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="control-item videofilter">
+                                    <i class="fas fa-magic"></i>
+                                </div> Versão futura -->
+                                <div class="control-item add-media" v-on:click="openConfigurations()">
+                                    <i class="fas fa-film"></i>
+                                </div>
+                                <div class="control-item mute" v-on:click="muteUnmuteAudio()">
+                                    <i class="fas fa-volume-up"></i>
+                                </div>
+                                <!--<div class="control-item more-options">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </div> Versão Futura -->
+                                <div class="control-item config">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="configuration-other-controls">
                         <div class="configuration-others-header">
@@ -107,6 +108,7 @@
                                     </div>
                                     <input type="text" name="url-video" id="url-video" placeholder="Url do video" v-on:keyup="showAddVideoButton()">
                                     <button class="add-video-button" v-on:click="searchLinkToAddMedia()">Adicionar video</button>
+                                    <button class="remove-video-button" v-on:click="removeVideoIframe()">Remover video</button>
                                 </div>
                                 <iframe controls="false" width="400" height="200" :src="'https://www.youtube.com/embed/' + videoId" class="play-video"></iframe>
                                 <div class="response"></div>
@@ -197,6 +199,7 @@ export default {
     data() {
         return {
             videoId: '',
+            teste: '',
             addMediaOpened: 1,
             endMeeting: 0,
             video: this.$route.params.video,
@@ -344,12 +347,18 @@ export default {
                 $("#url-video").val("");
                 $(".add-video-button").hide();
                 $(".play-video").show();
+                $(".remove-video-button").show();
             } else {
                 if (!video.is(":visible")) {
                     $("#url-video").val("");
                     $(".response").html("Há algo de errado, tente novamente!");
                 }
             }
+        },
+        removeVideoIframe() {
+            $(".play-video").hide();
+            $(".remove-video-button").hide();
+            this.videoId = '';
         },
         showAddVideoButton() {
             if (!$("#url-video").val() == '') {
@@ -372,6 +381,7 @@ export default {
         },
         endThisMeeting() {
             $(".video-meeting-container-inner").css("opacity", 0);
+            $(".meeting-expanded-overlay").css("display", "none");
             setTimeout(() => {
                this.endMeeting = 1; 
             }, 400)
@@ -384,9 +394,13 @@ export default {
             $(".video-meeting-body").addClass("video-meeting-body-expanded");
             $(".meeting").addClass("meeting-expanded");
             $(".room-options").addClass("room-options-expanded");
+            if(!$(".video").hasClass("video-expanded")) {
+                $(".meeting-controls").css("left", "-20rem");
+            }
             $(".video").addClass("video-expanded");
             $(".meeting-expanded-overlay").css("display", "block");
-            $(".room-options button").css("box-shadow", "0 0 10px rgba(0,0,0,0.7)")
+            $(".room-options button").css("box-shadow", "0 0 10px rgba(0,0,0,0.7)");
+            $(".configuration-other-controls").css("height", "90%");
         },
         contractVideoMeeting() {
             $(".video-meeting-body").removeClass("video-meeting-body-expanded");
@@ -394,12 +408,33 @@ export default {
             $(".room-options").removeClass("room-options-expanded");
             $(".video").removeClass("video-expanded");
             $(".meeting-expanded-overlay").css("display", "none");
+            $(".room-options button").css("box-shadow", "none");
+        },
+        showMeetingControls() {
+            $(".meeting-controls").css("left", "0");
+            clearTimeout(this.teste)
+            console.log("entrou")
+        },
+        hideMeetingControls() {
+            console.log("saiu")
+            this.teste = setTimeout(() => {
+                $(".meeting-controls").css("left", "-20rem");
+            }, 5000);
         }
     }
 }
 </script>
 
 <style scoped>
+    .container-controls-hover {
+        height: 100%;
+        width: 70px;
+        position: absolute;
+        left: 0;
+        display: flex;
+        align-items: center;
+    }
+
     .end-meeting-message {
         transition: 0.4s opacity;
     }
@@ -538,6 +573,7 @@ export default {
         justify-content: center;
         align-items: center;
         position: relative;
+        overflow: hidden;
     }
 
     img.meeting {
@@ -635,6 +671,7 @@ export default {
         border-radius: 10px;
         z-index: 1;
         user-select: none;
+        transition: all 0.4s;
     }
 
     .meeting-controls i {
@@ -753,11 +790,11 @@ export default {
 
     .configuration-other-controls {
         width: 90%;
-        height: 45vh;
+        height: 70%;
         background: rgba(0,0,0,0.9);
         border-radius: 10px;
         position: absolute;
-        z-index: 2;
+        z-index: 3;
         padding: .8rem;
         display: none;
         flex-direction: column;
@@ -839,7 +876,7 @@ export default {
         margin-left: 1rem;
     }
 
-    .add-video-button {
+    .add-video-button, .remove-video-button {
         background: var(--blue);
         border: none;
         border-radius: 10px;

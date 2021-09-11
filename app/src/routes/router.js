@@ -9,7 +9,6 @@ import myRooms from '../pages/my-rooms.vue'
 import meeting from '../pages/meeting.vue'
 import login from '../pages/login.vue'
 import register from '../pages/register.vue'
-import profileTimeLine from '../components/profileTimeLine.vue'
 
 const routes = [
     {
@@ -22,12 +21,7 @@ const routes = [
     },
     {
         path: '/profile/:id',
-        component: profilePage,
-        children: [
-            {
-                path: "/timeline", component: profileTimeLine
-            }
-        ]
+        component: profilePage
     },
     {
         path: '/my-rooms',

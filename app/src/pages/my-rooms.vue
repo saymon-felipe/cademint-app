@@ -1,18 +1,20 @@
 <template>
     <div>
         <siteTemplate>
-            <h2>My rooms</h2>
+            <myRoomsComponent />
         </siteTemplate>
     </div>
 </template>
 
 <script>
 import siteTemplate from '../templates/siteTemplate.vue'
+import myRoomsComponent from '../components/myRooms.vue'
 
 export default {
     name: "myRooms",
     components: {
-        siteTemplate
+        siteTemplate,
+        myRoomsComponent
     }
 }
 </script>
