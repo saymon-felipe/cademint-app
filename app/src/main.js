@@ -251,7 +251,15 @@ $(document).on("click", e => {
     $(".more-options-container").removeClass("d-flex");
     $(".more-options-container").addClass("d-none");
   }  
+
+  //Resetar div de notificações quando clica fora
+  if(!target.closest('.notifications').length && !target.closest('.notifications-components').length && $('.notifications-component').is(":visible")) {
+    $(".notifications-component").removeClass("d-block");
+    $(".notifications-component").addClass("d-none");
+  } 
 });
+
+
 
 //Preservar o scroll atual da pagina
 var scrollPosition = localStorage.getItem('posicaoScroll');

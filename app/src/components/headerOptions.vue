@@ -1,8 +1,11 @@
 <template>
     <div class="header-options">
         <div class="notifications" v-on:click="showNotifications()">
-            <i class="fas fa-bell icon-clicable"></i>
-            <div class="new-notifications"></div>
+            <div class="notification-icon">
+                <i class="fas fa-bell icon-clicable"></i>
+                <div class="new-notifications"></div>
+            </div>
+            <notificationsComponent id="notifications-component" />
         </div>
         <router-link :to="'/meeting/' + true" class="video-meeting">
             <i class="fas fa-video"></i>
@@ -11,12 +14,18 @@
 </template>
 
 <script>
+import notificationsComponent from '../components/notificationsComponent.vue'
+import $ from 'jquery'
+
 export default {
     name: "headerOptions",
     methods: {
         showNotifications() {
-            console.log("notificações");
+            $("#notifications-component").toggleClass("d-block");
         }
+    },
+    components: {
+        notificationsComponent
     }
 }
 </script>
@@ -31,6 +40,7 @@ export default {
         align-items: center;
         padding: .2rem;
         box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        position: relative;
     }
 
         .header-options i {
@@ -58,9 +68,13 @@ export default {
         border-radius: 50%;
         background: var(--red);
         border: 2px solid var(--white);
+        position: absolute;
+        right: 0;
+        top: 50%;
+    }
+
+    .notification-icon {
         position: relative;
-        right: 6px;
-        top: 2px;
     }
 
     @media (max-width: 420px) {

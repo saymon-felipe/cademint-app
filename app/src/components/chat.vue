@@ -9,12 +9,12 @@
                 </div>
             </div>
             <div class="container-friends">
-                <div v-for="friendId in findUser(this.mainUserId).friends" v-bind:key="friendId" v-on:mouseenter="showCard(friendId)" v-on:mouseleave="hideCard(friendId)" class="container-user-chat" v-on:click="openChatBox(friendId)">
-                    <div class="container-photo">
+                <div v-for="friendId in findUser(this.mainUserId).friends" v-bind:key="friendId" class="container-user-chat" >
+                    <div class="container-photo" v-on:click="showCard(friendId)">
                         <img :src="requireImage(friendId)" class="avatar-p">
                         <div :class="'onlineOffline' + userIsOnline(friendId)"></div>
                     </div>
-                    <div class="container-user-text" >
+                    <div class="container-user-text" v-on:click="openChatBox(friendId)">
                         <div class="name-status">
                             <h5 class="user-name-others">{{ findName(friendId) }}</h5>
                             <h6 class="user-status">{{ getStatusText(friendId) }}</h6>
@@ -24,29 +24,9 @@
                     <div class="time-last-message" title="Tempo desde a última mensagem">
                         {{ timeLastMessage() }}
                     </div>
-                    <div class="user-card" :id="'card-user-' + friendId">
-                        <div class="user-card-header">
-                            <img :src="requireImage(friendId)" class="avatar-p-card clean" v-on:click="goToUserProfile(friendId)">
-                            <div class="card-informations-header">
-                                <div id="label-ranking" :class="'label-ranking-interaction ' + findRankingPosition(findUser(friendId).ranking_position, 1) + ' ' + 
-                                testIfColorBlack('label-ranking-interaction ' + findRankingPosition(findUser(friendId).ranking_position, 1), false)" >
-                                    <h6>#{{ findUser(friendId).ranking_position }} em interação</h6>
-                                </div>
-                                <h4 class="user-name-others" v-on:click="goToUSerProfile(friendId)">{{ findName(friendId) }}</h4>
-                                <h6 class="user-idade">{{ findAge(friendId) }}</h6>
-                            </div>
-                        </div>
-                        <div class="card-status-container">
-                            <h6 class="user-status-complete">{{ getStatusText(friendId) }}</h6>
-                        </div>
-                        <div class="card-footer">
-                            <router-link :to="'/meeting/' + true"><i class="fas fa-video"></i></router-link>
-                            <router-link :to="'/meeting/' + false"><i class="fas fa-phone"></i></router-link>
-                        </div>
-                        <div class="user-card-triangle"></div>
-                    </div>
+                    
                 </div>
-                <chatBox :friendId="friendId" />
+                <!--<chatBox :friendId="friendId" />-->
             </div>
             <div class="hr"></div>
             <div class="container-groups">
@@ -71,40 +51,43 @@
                     </div>
                 </div>
             </div>
-            
         </section>
+        <userCard class="card" :cardId="this.friendCardId" />
+        <div class="card-overlay" v-on:click="hideCard()"></div>
     </div>
 </template>
 
 <script>
 import $ from 'jquery'
-import chatBox from '../components/chatBox.vue'
+//import chatBox from '../components/chatBox.vue'
 import {globalMethods} from '../js/globalMethods.js'
+import userCard from '../components/userCard.vue'
 
 export default {
     name: 'Chat',
     mixins: [globalMethods],
     methods: {
-        showCard(friendId) {
-            setTimeout(() => {
-                $(`#card-user-${friendId}`).css("display", "block");
-            }, 200);
+        showCard(id) {
+            $(".card").hide();
+            console.log("mostrar card id " + id);
+            this.friendCardId = id;
+            console.log(this.friendCardId)
+            $(".card").css("display", "flex");
+            $(".card-overlay").show();
         },
-        hideCard(friendId) {
-            setTimeout(() => {
-                $(`#card-user-${friendId}`).css("display", "none");
-            }, 200);
+        hideCard() {
+            $(".card").css("display", "none");
+            $(".card-overlay").hide();
         },
         openChatBox() {
-            $(chatBox).show();
+            //$(chatBox).show();
             
         },
-        goToUserProfile(userId) {
-           window.location = "/profile/" + userId
-        }
+        
     },
     components: {
-        chatBox
+        userCard
+        //chatBox
     }
 }
 </script>
@@ -270,15 +253,6 @@ export default {
         }
     }
 
-    /* AVATAR */
-
-    .avatar-p-card {
-        width: 65px;
-        height: 65px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
     /* STATUS */
 
     .user-status {
@@ -295,95 +269,24 @@ export default {
         text-overflow: ellipsis;
     }
 
-
-    /* USER CARD */
-
-    @media (max-width: 530px) {
-        .user-card {
-            display: none!important;
-        }
-    }
-
-    .user-card {
-        width: 15rem;
-        border-radius: 1rem;
-        position: absolute;
-        left: -15.5rem;
-        background: var(--white);
-        box-shadow: 0 0 10px rgba(0,0,0,0.3);
-        padding: 1rem;
-        transition: 0.2s;
-        display: none;
+    .card-overlay {
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: black;
+        opacity: 0.7;
         z-index: 999;
-    }
-        .user-card::after {
-            content: '';
-            width: 2rem;
-            height: 10rem;
-            position: absolute;
-            top: 0;
-            right: -2rem;
-        }
-
-    .user-card-triangle {
-        content: '';
-        width: 10px;
-        height: 10px; 
-        border-top: 10px solid transparent;
-        border-bottom:10px solid transparent;
-        border-left: 10px solid var(--white);
-        overflow: hidden;
-        position: absolute;
-        right: -10px;
-        top: 45%
-
-    }
-
-    .card-informations-header {
-        width: 60%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .clean {
-        border: none;
-    }
-
-    .user-card-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .user-idade {
-        font-size: .8rem;
-    }
-
-    .card-status-container {
-        margin-top: .8rem;
-    }
-        .card-status-container h6 {
-            font-size: .9rem;
-        }
-    .user-card .card-footer {
-        background: transparent;
-        padding: .7rem 0 0;
-        margin-top: .7rem;
-        display: flex;
-        justify-content: center;
-    }
-    .user-card .card-footer i {
-        font-size: 1.3rem;
-        margin-left: 1rem;
+        display: none;
     }
 
     .container-friends {
         height: 50%;
         width: 100%;
         margin: .5rem 0;
-        overflow-y: scroll;
         overflow-x: hidden;
+        overflow-y: scroll;
     }
 
 </style>

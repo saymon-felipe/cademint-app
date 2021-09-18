@@ -119,11 +119,15 @@ export const globalMethods = {
         timeLastMessage() {
           var timeLastMessage = "Há 1 hora"; //Valor virá da api
           return timeLastMessage;
+        },
+        goToUserProfile(userId) {
+          window.location = "/profile/" + userId
         }
     },
     data() {
         return {
             mainUserId: 1, //posição do usuario no array
+            friendCardId: 0,
 
             //Declaração de usuários para teste
             users: [
@@ -133,7 +137,7 @@ export const globalMethods = {
                 avatar: "img-user-test-1.jpg",
                 is_online: true,
                 status_text: "Jogando lol com a raposa mais linda de sempre!!!",
-                friends: [2, 3, 4, 4, 4, 4,2,2,2,2,4,4,4,4],
+                friends: [2, 3, 4],
                 age: 19,
                 ranking_position: 682,
                 groups: [1, 2, 3]
@@ -145,7 +149,7 @@ export const globalMethods = {
                 avatar: "girl1.png",
                 is_online: true,
                 status_text: "Escutando BlackPink e jogando lol, venha jogar comigo onii-san!!! 😍😍🎵",
-                friends: [1, 3, 4, 4, 4, 4,3,3,3,3,4,4,4,4],
+                friends: [1, 3, 4],
                 age: 19,
                 ranking_position: 28,
                 groups: [1, 2, 3]
@@ -157,7 +161,7 @@ export const globalMethods = {
                 avatar: "girl3.png",
                 is_online: false,
                 status_text: "",
-                friends: [1, 2, 4, 4, 4, 4,2,2,2,2,4,4,4,4],
+                friends: [1, 2, 4],
                 age: 17,
                 ranking_position: 830,
                 groups: [1, 3]
@@ -169,7 +173,7 @@ export const globalMethods = {
                 avatar: "girl4.jpg",
                 is_online: true,
                 status_text: "",
-                friends: [1, 2, 3, 3, 3, 3,2,2,2,2,3,3,3,3],
+                friends: [1, 2, 3],
                 age: 16,
                 ranking_position: 227,
                 groups: [3]
@@ -184,7 +188,7 @@ export const globalMethods = {
                 description: "Grupo para contemplação da rainha Ahri",
                 avatar: "ahri13.jpg",
                 is_public: true,
-                members: [1, 2, 3,3,3,3],
+                members: [1, 2, 3],
                 owner: 1
               },
               {
