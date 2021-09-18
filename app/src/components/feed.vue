@@ -1,11 +1,9 @@
 <template>
-    <div class="main-container">
-        <div class="inner-container">
-            <headerOptions />
-            <newPublication></newPublication>
-            <div class="publications">
-                <publication />
-            </div>
+    <div class="feed-container">
+        <headerOptions />
+        <newPublication></newPublication>
+        <div class="publications">
+            <publication />
         </div>
     </div>
 </template>
@@ -25,6 +23,10 @@ export default {
 }
 </script>
 <style scoped>
+
+    .feed-container {
+        width: 100%;
+    }
 
     .publications {
         margin-top: 1.5rem;

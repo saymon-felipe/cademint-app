@@ -1,6 +1,7 @@
 <template>
     <div>
         <siteTemplate>
+            <headerOptions />
             <myRoomsComponent />
         </siteTemplate>
     </div>
@@ -9,12 +10,14 @@
 <script>
 import siteTemplate from '../templates/siteTemplate.vue'
 import myRoomsComponent from '../components/myRooms.vue'
+import headerOptions from '../components/headerOptions.vue'
 
 export default {
     name: "myRooms",
     components: {
         siteTemplate,
-        myRoomsComponent
+        myRoomsComponent,
+        headerOptions
     }
 }
 </script>

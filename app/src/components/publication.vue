@@ -1,9 +1,9 @@
 <template>
-    <div class="publication" id="user-001"><!--Irá se repetir conforme quantidade de publicações que chegarem no feed-->
+    <div class="publication" id=""><!--Irá se repetir conforme quantidade de publicações que chegarem no feed-->
         <div class="publication-header">
             <div class="user-content">
-                <img src="../assets/img/test/girl1.png" class="avatar-p" v-on:click="goToUserProfile(1)">
-                <h6 class="publication-informations"><span class="publication-author-name user-name-others" v-on:click="goToUserProfile(1)"></span><!--user.name--><span class="publication-action"> alterou a foto de perfil<!--publication.action--></span></h6>
+                <img :src="requireImage(this.mainUserId)" class="avatar-p" v-on:click="goToUserProfile(this.mainUserId)">
+                <h6 class="publication-informations"><span class="publication-author-name user-name-others" v-on:click="goToUserProfile(this.mainUserId)">{{ findUser(this.mainUserId).name }}</span><span class="publication-action"> alterou a foto de perfil<!--publication.action--></span></h6>
             </div>
             <div>
                 <i class="fas fa-ellipsis-h icon-clicable" v-on:click="publicationMoreOptions()"></i>
@@ -14,7 +14,7 @@
                 <p>Não te desejo mal, apenas a reciprocidade! ☢️💥 <!--publication.text--></p>
             </div>
             <div class="publication-media">
-                <img src="../assets/img/test/girl1.png" class="media">
+                <img :src="requireImage(this.mainUserId)" class="media">
             </div>
         </div>
         <div class="publication-footer">
@@ -56,9 +56,11 @@
 <script>
 //import jquery from 'jquery'
 import comments from "../components/comment.vue"
+import {globalMethods} from '../js/globalMethods.js'
 
 export default {
     name: "publication",
+    mixins: [globalMethods],
     methods: {
         publicationMoreOptions() {
             console.log("mais opções da publicação");
@@ -119,7 +121,7 @@ export default {
     }
 
     .publication-informations {
-        margin-left: 1rem!important;
+        margin-left: .7rem!important;
     }
 
     .publication-author-name {

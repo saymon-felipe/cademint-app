@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view path="$router.key" />
+    <router-view path="$router.key"/>
   </div>
 </template>
 

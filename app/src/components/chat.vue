@@ -2,46 +2,76 @@
     <div>
         <section class="chat">
             <div class="header-chat">
-                <h4>Amigos</h4>
+                <h4 v-on:click="goToUserProfile()">Amigos</h4>
                 <div class="input-div">
                     <input type="text" name="search-amigos" id="search-amigos" placeholder="Procurar pessoas">
                     <i class="fas fa-search"></i>
                 </div>
             </div>
-            <div v-on:mouseover="showCard()" v-on:mouseout="hideCard()" class="container-user-chat" id="user-001" v-on:click="openChatBox()">
-                <div class="container-photo">
-                    <img src="../assets/img/test/girl1.png" class="avatar-p">
-                    <div class="onlineOffline"></div>
-                </div>
-                <div class="container-user-text" >
-                    <h5 class="user-name-others"></h5>
-                    <h6 class="user-status"></h6>
-                    <h6 class="last-message"></h6>
-                </div>
-                <div class="time-last-message" title="Tempo desde a última mensagem">
-                </div>
-                <div class="user-card">
-                    <div class="user-card-header">
-                        <img src="../assets/img/test/girl1.png" class="avatar-p-card clean" v-on:click="goToUSerProfile(1)">
-                        <div>
-                            <div class="label-ranking-interaction">
-                                <h6></h6>
+            <div class="container-friends">
+                <div v-for="friendId in findUser(this.mainUserId).friends" v-bind:key="friendId" v-on:mouseenter="showCard(friendId)" v-on:mouseleave="hideCard(friendId)" class="container-user-chat" v-on:click="openChatBox(friendId)">
+                    <div class="container-photo">
+                        <img :src="requireImage(friendId)" class="avatar-p">
+                        <div :class="'onlineOffline' + userIsOnline(friendId)"></div>
+                    </div>
+                    <div class="container-user-text" >
+                        <div class="name-status">
+                            <h5 class="user-name-others">{{ findName(friendId) }}</h5>
+                            <h6 class="user-status">{{ getStatusText(friendId) }}</h6>
+                        </div>
+                        <h6 class="last-message"></h6>
+                    </div>
+                    <div class="time-last-message" title="Tempo desde a última mensagem">
+                        {{ timeLastMessage() }}
+                    </div>
+                    <div class="user-card" :id="'card-user-' + friendId">
+                        <div class="user-card-header">
+                            <img :src="requireImage(friendId)" class="avatar-p-card clean" v-on:click="goToUserProfile(friendId)">
+                            <div class="card-informations-header">
+                                <div id="label-ranking" :class="'label-ranking-interaction ' + findRankingPosition(findUser(friendId).ranking_position, 1) + ' ' + 
+                                testIfColorBlack('label-ranking-interaction ' + findRankingPosition(findUser(friendId).ranking_position, 1), false)" >
+                                    <h6>#{{ findUser(friendId).ranking_position }} em interação</h6>
+                                </div>
+                                <h4 class="user-name-others" v-on:click="goToUSerProfile(friendId)">{{ findName(friendId) }}</h4>
+                                <h6 class="user-idade">{{ findAge(friendId) }}</h6>
                             </div>
-                            <h4 class="user-name-others" v-on:click="goToUSerProfile(1)"></h4>
-                            <h6 class="user-idade"></h6>
+                        </div>
+                        <div class="card-status-container">
+                            <h6 class="user-status-complete">{{ getStatusText(friendId) }}</h6>
+                        </div>
+                        <div class="card-footer">
+                            <router-link :to="'/meeting/' + true"><i class="fas fa-video"></i></router-link>
+                            <router-link :to="'/meeting/' + false"><i class="fas fa-phone"></i></router-link>
+                        </div>
+                        <div class="user-card-triangle"></div>
+                    </div>
+                </div>
+                <chatBox :friendId="friendId" />
+            </div>
+            <div class="hr"></div>
+            <div class="container-groups">
+                <div class="new-group">
+                    <div class="new-group-avatar avatar-p-group">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <h6 class="user-name-others"><strong>Criar sala</strong></h6>
+                </div>
+                <div class="groups-list">
+                    <div class="group" v-for="groupId in findUser(this.mainUserId).groups" v-bind:key="groupId">
+                        <div class="group-avatar">
+                            <img :src="requireGroupImage(groupId)" class="avatar-p-group">
+                        </div>
+                        <div class="name-last-message">
+                            <h6 class="user-name-others"><strong>{{findGroupName(groupId)}}</strong></h6>
+                            <h6 class="last-message"></h6>
+                        </div>
+                        <div class="time-last-message" title="Tempo desde a última mensagem">
+                            {{ timeLastMessage() }}
                         </div>
                     </div>
-                    <div class="card-status-container">
-                        <h6 class="user-status-complete"></h6>
-                    </div>
-                    <div class="card-footer">
-                        <router-link :to="'/meeting/' + true"><i class="fas fa-video"></i></router-link>
-                        <router-link :to="'/meeting/' + false"><i class="fas fa-phone"></i></router-link>
-                    </div>
-                    <div class="user-card-triangle"></div>
                 </div>
             </div>
-            <chatBox />
+            
         </section>
     </div>
 </template>
@@ -49,25 +79,28 @@
 <script>
 import $ from 'jquery'
 import chatBox from '../components/chatBox.vue'
+import {globalMethods} from '../js/globalMethods.js'
 
 export default {
     name: 'Chat',
+    mixins: [globalMethods],
     methods: {
-        showCard() {
+        showCard(friendId) {
             setTimeout(() => {
-                $(".user-card").show();
+                $(`#card-user-${friendId}`).css("display", "block");
             }, 200);
         },
-        hideCard() {
+        hideCard(friendId) {
             setTimeout(() => {
-                $(".user-card").hide();
+                $(`#card-user-${friendId}`).css("display", "none");
             }, 200);
         },
         openChatBox() {
             $(chatBox).show();
+            
         },
         goToUserProfile(userId) {
-            window.location = "/profile/" + userId
+           window.location = "/profile/" + userId
         }
     },
     components: {
@@ -77,6 +110,39 @@ export default {
 </script>
 
 <style scoped>
+    .groups-list {
+        height: 70%;
+        margin-top: 1rem;
+        overflow-y: scroll;
+    }
+
+    .group {
+        margin: .3rem 0;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .container-groups {
+        width: 100%;
+        max-height: 280px;
+    }
+
+    .new-group-avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .new-group {
+        display: flex;
+        align-items: center;
+    }
+
+        .new-group h6, .group h6 {
+            margin-left: .5rem!important;
+        }
+
     .chat {
         position: fixed;
         top: 0;
@@ -93,8 +159,6 @@ export default {
         border: 1px solid var(--gray-medium);
         padding: 0 10px;
         background: var(--gray-high);
-        overflow-y: scroll;
-        overflow-x: hidden;
     }
 
     @media (max-width: 720px) {
@@ -142,12 +206,14 @@ export default {
         justify-content: space-between;
         align-items: center;
         cursor: pointer;
+        position: relative;
     }
 
     .container-user-text {
-        position: relative;
-        bottom: 8px;
-        left: -8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: .5rem;
         width: 100%;
         cursor: pointer;
     }
@@ -155,14 +221,18 @@ export default {
     .container-user-text h6.last-message {
         font-size: .8rem;
         font-weight: 600;
-        position: relative;
-        bottom: -.5rem;
+        
+    }
+
+    .name-status {
+        margin-bottom: .5rem;
     }
 
     .time-last-message {
         align-self: flex-end;
         position: absolute;
         right: 0;
+        bottom: -.1rem;
         font-size: .7rem;
         font-weight: 600;
         width: 70px;
@@ -219,7 +289,7 @@ export default {
     }
 
     .last-message {
-        width: calc(100% - 7rem);
+        width: calc(100% - 7.4rem);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -227,6 +297,12 @@ export default {
 
 
     /* USER CARD */
+
+    @media (max-width: 530px) {
+        .user-card {
+            display: none!important;
+        }
+    }
 
     .user-card {
         width: 15rem;
@@ -238,6 +314,7 @@ export default {
         padding: 1rem;
         transition: 0.2s;
         display: none;
+        z-index: 999;
     }
         .user-card::after {
             content: '';
@@ -261,6 +338,14 @@ export default {
         top: 45%
 
     }
+
+    .card-informations-header {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
     .clean {
         border: none;
     }
@@ -268,7 +353,7 @@ export default {
     .user-card-header {
         display: flex;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-between;
     }
 
     .user-idade {
@@ -291,6 +376,14 @@ export default {
     .user-card .card-footer i {
         font-size: 1.3rem;
         margin-left: 1rem;
+    }
+
+    .container-friends {
+        height: 50%;
+        width: 100%;
+        margin: .5rem 0;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 
 </style>

@@ -1,9 +1,9 @@
 <template>
-    <div class="chat-box" id="user-001" style="display: none;">
+    <div class="chat-box">
         <div class="chat-box-header">
             <div class="chat-box-header-profile" v-on:click="goToUserProfile(1)">
-                <img src="../assets/img/test/girl1.png" class="avatar-p" alt="Foto de perfil de { user.name }">
-                <h4 class="user-name-others"></h4>
+                <img :src="requireImage(friendId)" class="avatar-p" :alt="'Foto de perfil de ' + findName(friendId)">
+                <h4 class="user-name-others">{{ findName(friendId) }}</h4>
             </div>
             <div class="header-chat-icons">
                 <router-link :to="'/meeting/' + true"><i class="fas fa-video icon-clicable"></i></router-link>
@@ -80,7 +80,8 @@ export default {
         goToUserProfile(userId) {
             window.location = "/profile/" + userId
         }
-    }
+    },
+    props: ["friendId"]
 }
 </script>
 
@@ -89,6 +90,7 @@ export default {
         min-width: 280px;
         max-width: 300px;
         height: 470px;
+        display: none;
         margin: auto;
         position: fixed;
         bottom: 0;

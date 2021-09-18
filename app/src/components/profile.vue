@@ -11,12 +11,12 @@
             </div>
             <div class="user-profile-header">
                 <div class="avatar-container">
-                    <img src="../assets/img/test/img-user-test-1.jpg" class="avatar-g" v-on:click="showExpandedImg()">
+                    <img :src="requireImage($route.params.id)" class="avatar-g" v-on:click="showExpandedImg()">
                     <div class="avatar-edit">
                         <i class="fas fa-edit"></i>
                     </div>
                 </div>
-                <h4><strong class="user-name"></strong></h4>
+                <h4><strong class="">{{ findName($route.params.id) }}</strong></h4>
             </div>
             <div class="profile-body">
                 <div class="profile-body-menu">
@@ -37,7 +37,7 @@
         </div>
         <div class="img-expanded">
             <i class="fas fa-times" v-on:click="hideImgExpanded()"></i>
-            <img src="../assets/img/test/img-user-test-1.jpg">
+            <img :src="requireImage($route.params.id)">
         </div> 
         <div class="overlay-img-expanded" v-on:click="hideImgExpanded()"></div>
     </div>
@@ -50,6 +50,7 @@ import profileAbout from '../components/profileAbout.vue'
 import profileFriends from '../components/profileFriends.vue'
 import profilePhoto from '../components/profilePhoto.vue'
 import $ from 'jquery'
+import {globalMethods} from '../js/globalMethods.js'
 
 export default {
     name: "profile",
@@ -60,6 +61,7 @@ export default {
         profileFriends,
         profilePhoto
     },
+    mixins: [globalMethods],
     data() {
         return {
             timeLine: 1,
@@ -73,7 +75,6 @@ export default {
             console.log("editar banner");
         },
         hideImgExpanded() {
-            console.log("esconder img expandida");
             $(".img-expanded").css("top", "-100vh");
             $(".overlay-img-expanded").hide();
         },
@@ -237,6 +238,7 @@ export default {
         right: 0;
         left: 0;
         margin: auto;
+        height: 50vh;
     }
 
     @media (max-width: 1158px) {
@@ -274,6 +276,8 @@ export default {
     .img-expanded img {
         width: 100%;
         border-radius: 10px;
+        height: 90%;
+        object-fit: cover;
     }
 
     .overlay-img-expanded {
@@ -285,7 +289,7 @@ export default {
         top: 0;
         right: 0;
         z-index: 1000;
-        display: none;
+        display: none;  
     }
 
     .profile-body {

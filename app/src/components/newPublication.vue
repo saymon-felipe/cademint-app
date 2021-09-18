@@ -1,7 +1,7 @@
 <template>
     <div class="new-publication">
         <div class="new-publication-header">
-            <img src="../assets/img/test/img-user-test-1.jpg" class="avatar-p">
+            <img :src="requireImage(this.mainUserId)" class="avatar-p">
             <div class="new-publication-text">
                 <textarea placeholder="Faça uma publicação..." name="write-publication" id="write-publication" cols="40" rows="1" v-on:click="writePublication()" v-on:keyup="showPublishButton()"></textarea>
                 <button style="display: none;" id="publish" class="publish-disabled" v-on:click="publish()" disabled>Publicar</button>
@@ -22,9 +22,12 @@
 
 <script>
 import $ from 'jquery'
+import {globalMethods} from '../js/globalMethods.js'
 
 export default {
     name: "newPublication",
+    props: ["userId"],
+    mixins: [globalMethods],
     methods: {
         writePublication() {
             $(".new-publication-header").css("align-items", "flex-start");
@@ -101,8 +104,8 @@ export default {
     .new-publication-text {
         display: flex;
         align-items: flex-end;
-        margin-left: 1rem;
-        width: 100%;
+        margin-left: .8rem;
+        width: 95%;
         margin-top: auto;
         margin-bottom: auto;
     }

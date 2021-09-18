@@ -2,17 +2,20 @@ import Vue from 'vue'
 import App from './App.vue'
 import $ from 'jquery'
 import router from '../src/routes/router.js';
-import { setInterval } from 'core-js';
+//import { setInterval } from 'core-js';
 
 Vue.config.productionTip = false
 Vue.prototype.$hasOpened
+
+
 
 new Vue({
   router,
   render: h => h(App),
 }).$mount('#app')
 
-var totalSeconds = 0;
+
+/*var totalSeconds = 0;
 function calcTime(element, timeRange) {
   let second = 0;
   let minute = 0;
@@ -28,7 +31,7 @@ function calcTime(element, timeRange) {
       hour += 1;
     }
     totalSeconds += 1;
-    if (totalSeconds >= timeRange /*5940*/) {
+    if (totalSeconds >= timeRange) {
       clearInterval(timerAudio);
       totalSeconds = 0;
     }
@@ -67,8 +70,8 @@ $(".end-meeting").on("click", () => {
     $(".time-duration-container").hide();
   });
 });
-
-function formatTime(hour, minute, second) {
+*/
+/*function formatTime(hour, minute, second) {
   let formatedSecond;
   let formatedMinute;
   if (second < 10) {
@@ -86,53 +89,11 @@ function formatTime(hour, minute, second) {
   } else {
     return formatedMinute + ":" + formatedSecond;
   }
-}
+}*/
 
 
-//Declaração de usuários para teste
-var user001 = {
-  id: 1,
-  name: "Saymon Felipe",
-  avatar: "../assets/img/test/img-user-test-1.jpg",
-  is_online: true,
-  status_text: "Jogando lol com a raposa mais linda de sempre!!!",
-  friends: [2, 3, 4],
-  age: 19,
-  ranking_position: 682
-}
 
-var user002 = {
-  id: 2,
-  name: "Ana Clara",
-  avatar: "assets/img/test/girl1.png",
-  is_online: true,
-  status_text: "Escutando BlackPink e jogando lol, venha jogar comigo onii-san!!! 😍😍🎵",
-  friends: [1, 3, 4],
-  age: 19,
-  ranking_position: 28
-}
 
-var user003 = {
-  id: 3,
-  name: "Cristina Gonçalves",
-  avatar: "assets/img/test/girl3.png",
-  is_online: false,
-  status_text: "",
-  friends: [1, 2, 4],
-  age: 17,
-  ranking_position: 830
-}
-
-var user004 = {
-  id: 4,
-  name: "Sofia Cavalcanti dos Santos",
-  avatar: "assets/img/test/girl4.png",
-  is_online: true,
-  status_text: "",
-  friends: [1, 2, 3],
-  age: 16,
-  ranking_position: 327
-}
 
 
 //Encontra a data local
@@ -155,21 +116,29 @@ function findMonth(month) {
 }
 var formatedDate = ((today.getDate() )) + " de " + (findMonth(today.getMonth())) + " de " + today.getFullYear();
 
+$(".today").html(formatedDate);
+
+//$(".label-ranking-interation").css("color", testIfColorBlack(findRankingPosition(this.users[3].ranking_position, 1)))
+
+//var arrayRankingReturnedSelf = findRankingPosition(users.user001.ranking_position);
+
+/*
 //Funções para home user
 setInterval(() => {
   //Aplica a data atual a todas as divs com classe "today" a cada 1 s
-  $(".today").html(formatedDate);
-
-  var arrayRankingReturnedSelf = findRankingPosition(user001.ranking_position);
+  
+  
 
   //Coloca a letra preta nos badges conforme cor do background
   $(".home-user-text .label-ranking-interaction").css("color", testIfColorBlack(arrayRankingReturnedSelf[1]));
 
   //Inserção dinâmica do nome do usuário (usuário)
-  $(".user-name").html(user001.name);
+  $(".user-name").html(users.user001.name);
 
   //Adiciona cor na badge do próprio usuário
   $(".home-user-text .label-ranking-interaction").addClass(arrayRankingReturnedSelf[1]);
+
+  $(".home-user-text .label-ranking-interaction h6").html(formatedRankingPosition);
 
   //Encontrar a posição on ranking
   getUserRankingPosition();
@@ -177,42 +146,18 @@ setInterval(() => {
   $(".avatar-g").addClass(arrayRankingReturnedSelf[0]); //usuário atual virá da api
 
 }, 1000);
+*/
+/*
 
 
-//Função converte a posição no ranking em numero para classes
-function findRankingPosition(rankingPosition) {
-  if(rankingPosition > 0 && rankingPosition <= 100) {
-    return ["rank-1", "rank-1-badge"];
-  } else if (rankingPosition > 100 && rankingPosition <= 300) {
-    return ["rank-2", "rank-2-badge"];
-  } else if (rankingPosition > 300 && rankingPosition <= 600) {
-    return ["rank-3", "rank-3-badge"];
-  } else if (rankingPosition > 600 && rankingPosition <= 1200) {
-    return ["rank-4", "rank-4-badge"];
-  } else {
-    return ["rank-5", "rank-5-badge"];
-  }
-}
 
-//Função testa se deve colocar cor preta na letra do badge
-function testIfColorBlack(colorBadge) {
-  if (colorBadge == "rank-2-badge" || colorBadge == "rank-3-badge") {
-    return "var(--gray-low)"
-  }
-}
 
-//Função coloca foto de perfil do usuário
-/*setInterval(() => {
-  if ($(".img-user").length) {
-    console.log(document.querySelector(".img-user"))
-    document.querySelector(".img-user").src = user001.avatar;
-  }
-}, 1000);*/
+
 
 //Recupera a posição no ranking de interação do usuário a cada 1 segundo
 function getUserRankingPosition() {
   var currentRankingPosition = $(".user-card .label-ranking-interaction h6").html();
-  var formatedRankingPosition = "#" + user001.ranking_position + " <span>em interação</span>";
+  var formatedRankingPosition = "#" + users.user001.ranking_position + " <span>em interação</span>";
   if (formatedRankingPosition == currentRankingPosition) {
     return;
   } else {
@@ -224,7 +169,7 @@ function getUserRankingPosition() {
 //Recupera a posição no ranking de interação do amigo a cada 1 segundo
 function getFriendRankingPosition() {
   var currentRankingPosition = $(".user-card .label-ranking-interaction h6").html();
-  var formatedRankingPosition = "#" + user002.ranking_position + " <span>em interação</span>";
+  var formatedRankingPosition = "#" + users.user002.ranking_position + " <span>em interação</span>";
   if (formatedRankingPosition == currentRankingPosition) {
     return;
   } else {
@@ -257,7 +202,7 @@ function executeChat() {
 
   //Colocar cor do avatar e do badge conforme o ranking de interação
   if ($(document).length) {
-    var arrayRankingReturnedFriend = findRankingPosition(user002.ranking_position);
+    var arrayRankingReturnedFriend = findRankingPosition(users.user002.ranking_position);
     $("#user-001 .avatar-p").addClass(arrayRankingReturnedFriend[0]); //usuário atual virá da api
 
     //Adiciona cor do badge dos amigos
@@ -268,13 +213,13 @@ function executeChat() {
     $(".user-card .label-ranking-interaction").css("color", testIfColorBlack(arrayRankingReturnedFriend[1]));
   
     //Inserção dinâmica do nome do usuário (amigo)
-    $(".user-name-others").html(user002.name);
+    $(".user-name-others").html(users.user002.name);
   }
 
   if ($(".chat").length) {
     var lastMessage = "Então dai você vem na minha casa pra gente poder estudar aquela questão lá"; //Pensar na lógica que irá retornar as mensagens
     //Exibir status
-    $(".user-status").html(user002.status_text);
+    $(".user-status").html(users.user002.status_text);
 
     //Última mensagem
     $(".last-message").html(lastMessage);
@@ -283,36 +228,13 @@ function executeChat() {
     var timeLastMessage = "Há 1 hora"; //Valor virá da api
     $(".time-last-message").html(timeLastMessage);
 
-    //Exibe a idade do usuário
-    var userIdade = user002.age + " anos"; //Idade virá da api
-    $(".user-idade").html(userIdade);
+    
 }}
 executeChat();
 setInterval(executeChat, 1000);
 
-//Função para o feed
-function executePublications() {
-  if ($(".publications").length) {
 
-    //Retorna o contorno do avatar do user do comentario
-    var arrayRankingReturnedFriend2 = findRankingPosition(user003.ranking_position);
-    $("#user-002 .avatar-pp").addClass(arrayRankingReturnedFriend2[0]); //usuário atual virá da api
-  
-    //Retorna o nome do user do comentario
-    $("#user-002 .user-name-comment").html(user003.name);
-
-    //Retorna o contorno do avatar do user do comentario
-    var arrayRankingReturnedFriend3 = findRankingPosition(user004.ranking_position);
-    $("#user-003 .avatar-pp").addClass(arrayRankingReturnedFriend3[0]); //usuário atual virá da api
-
-    //Retorna o nome do user do comentario resposta
-    $("#user-003 .user-name-comment").html(user004.name);
-  
-  }
-}
-
-setInterval(executePublications, 1000);
-
+*/
 
 $(document).on("click", e => {
 
@@ -348,6 +270,3 @@ setInterval(() => {
     localStorage.setItem('scrollPosition', JSON.stringify(scrollPosition));
   }
 }, 1);
-
-
-

@@ -17,13 +17,13 @@
             </a>
             <div class="home-user">
                 <div>
-                    <img src="../assets/img/test/img-user-test-1.jpg" alt="" class="img-user">
+                    <img :src="requireImage(this.mainUserId)" class="img-user">
                 </div>
                 <div class="home-user-text">
-                    <h4><strong>Olá, </strong><span class="user-name"></span></h4>
+                    <h4><strong>Olá, </strong><span class="user-name">{{ findUser(this.mainUserId).name }}</span></h4>
                     <h6 class="today"></h6>
-                    <div class="label-ranking-interaction">
-                        <h6></h6>
+                    <div id="label-ranking" :class="'label-ranking-interaction ' + findRankingPosition(this.findUser(this.mainUserId).ranking_position, 1)">
+                        <h6>{{ formatRankingPosition(this.findUser(this.mainUserId).ranking_position) }}</h6>
                     </div>
                 </div>
                 <a href="/" class="account-configuration">
@@ -43,7 +43,7 @@
                     </li>
                     <li class="nav-item">
                         <i class="fas fa-user-alt menu-icon"></i>
-                        <router-link :to="'/profile/' + userId + '/'" class="nav-link" v-on:mouseenter.native="animationHover(1)" v-on:mouseout.native="resetAnimation()">Meu perfil <i class="fas fa-chevron-left arrow-menu"></i></router-link>
+                        <router-link :to="'/profile/' + this.mainUserId" class="nav-link" v-on:mouseenter.native="animationHover(1)" v-on:mouseout.native="resetAnimation()">Meu perfil <i class="fas fa-chevron-left arrow-menu"></i></router-link>
                     </li>
                     <li class="nav-item">
                         <i class="fas fa-users menu-icon"></i>
@@ -72,8 +72,17 @@
 
 <script>
 import $ from 'jquery'
+import {globalMethods} from '../js/globalMethods.js'
+
 export default {
     name: 'Header',
+    mixins: [globalMethods],
+    created() {
+        setTimeout(() => {
+            var labelRanking = $("#label-ranking").attr("class");
+            $("#label-ranking").css("color", this.testIfColorBlack(labelRanking))
+        }, 50);
+    },
     methods: {
         openMenu() {
             $("#lateral-menu").css("transform", "translateX(0)");
@@ -111,8 +120,7 @@ export default {
             this.hasOpened = 0;
             $(".overlayChat").hide();
         }
-    },
-    props: ['userId']
+    }
 }
 </script>
 <style scoped>
@@ -173,7 +181,7 @@ export default {
     }
 
     #lateral-menu {
-        min-width: 300px;
+        width: 300px;
         max-width: 500px;
         height: 100vh;
         background: var(--yellow);
@@ -210,10 +218,15 @@ export default {
     }
     .home-user {
         margin-top: 2rem;
+        padding: .2rem;
         width: 100%;
         display: flex;
         justify-content: space-around;
         align-items: center;
+    }
+
+    .home-user-text {
+        margin: 0 .3rem;
     }
     
     .home-user-text h6 {
@@ -230,6 +243,10 @@ export default {
     }
 
     /* STATUS */
+    .status-content {
+        position: relative;
+    }
+
     .status-content textarea {
         background: var(--yellow-high);
         border-radius: 10px;
@@ -257,8 +274,10 @@ export default {
         height: 2px;
         background: var(--yellow);
         position: absolute;
-        top: 335px;
-        left: 52px;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        margin: auto;
     }
     @media (max-width: 720px) {
         .status-content textarea {

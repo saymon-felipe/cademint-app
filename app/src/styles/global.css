@@ -51,7 +51,7 @@ html, body {
     font-family: 'Open Sans', sans-serif!important;
     background-color: var(--gray-high)!important;
     color: var(--gray-low)!important;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .hr {
@@ -115,7 +115,7 @@ h1, h1, h3, h4, h5, h6 {
 p {
     font-size: .9rem;
 }
-.avatar-g, .avatar-p, .avatar-pp, .avatar-xp {
+.avatar-g, .avatar-m, .avatar-p, .avatar-pp, .avatar-xp, .avatar-xxp, .avatar-p-group {
     border-radius: 50%;
     object-fit: cover;
 }
@@ -123,6 +123,11 @@ p {
 .avatar-g  {
     width: 130px;
     height: 130px;
+}
+
+.avatar-m  {
+    width: 90px;
+    height: 90px;
 }
 
 
@@ -141,8 +146,29 @@ p {
     height: 30px;
 }
 
+.avatar-xxp {
+    width: 20px;
+    height: 20px;
+}
+
+.label-ranking-interaction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-p-group {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--gray-low);
+}
+
 @media (max-width: 720px) {
     .avatar-p {
+        width: 43px;
+        height: 43px;
+    }
+    .avatar-p-group {
         width: 43px;
         height: 43px;
     }
@@ -244,7 +270,7 @@ p {
     align-items: center;
     transition: 0.3s width;
     overflow-y: hidden;
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
 }
 
 .inner-container {
@@ -257,7 +283,7 @@ p {
     max-width: 1500px;
     height: 100%;
     transition: 0.3s width;
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
     overflow-y: scroll;
 }
 
@@ -453,7 +479,7 @@ p {
     padding: 0 .5rem;
     display: flex;
     align-items: center;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 .chat-box-footer input {
     width: 100%;
@@ -464,4 +490,12 @@ p {
 .chat-box-footer input::placeholder {
     position: relative;
     left: 2rem
+}
+
+.textBlack {
+    color: var(--gray-low);
+}
+
+.textWhite {
+    color: var(--white);
 }
