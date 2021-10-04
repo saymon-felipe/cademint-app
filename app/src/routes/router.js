@@ -9,6 +9,7 @@ import myRooms from '../pages/my-rooms.vue'
 import meeting from '../pages/meeting.vue'
 import login from '../pages/login.vue'
 import register from '../pages/register.vue'
+import userConfig from '../pages/userConfig.vue'
 
 const routes = [
     {
@@ -38,6 +39,10 @@ const routes = [
     {
         path: '/register', 
         component: register
+    },
+    {
+        path: '/user-config', 
+        component: userConfig
     }
 ];
 
