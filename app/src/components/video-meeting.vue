@@ -193,9 +193,11 @@
 import $ from 'jquery';
 import headerOptions from "../components/headerOptions.vue"
 import endMeeting from  "../components/end-meeting.vue"
+import {globalMethods} from '../js/globalMethods.js'
 
 export default {
     name: 'videoMeeting',
+    mixins: [globalMethods],
     data() {
         return {
             videoId: '',
@@ -384,8 +386,11 @@ export default {
             $(".meeting-expanded-overlay").css("display", "none");
             setTimeout(() => {
                this.endMeeting = 1; 
-            }, 400)
-            
+            }, 400);
+            this.totalSeconds = 18000;
+            setTimeout(() => {
+                $(".time-duration-container").hide();
+            });
             setTimeout(() => {
                 window.location.replace("/feed");
             }, 3000);
@@ -412,11 +417,9 @@ export default {
         },
         showMeetingControls() {
             $(".meeting-controls").css("left", "0");
-            clearTimeout(this.teste)
-            console.log("entrou")
+            clearTimeout(this.teste);
         },
         hideMeetingControls() {
-            console.log("saiu")
             this.teste = setTimeout(() => {
                 $(".meeting-controls").css("left", "-20rem");
             }, 5000);

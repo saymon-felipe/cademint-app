@@ -7,7 +7,7 @@
             </div>
             <notificationsComponent id="notifications-component" />
         </div>
-        <router-link :to="'/meeting/' + true" class="video-meeting">
+        <router-link :to="'/meeting/' + true" class="video-meeting" @click.native="initiateConferenceTimer()">
             <i class="fas fa-video"></i>
         </router-link>
     </div>
@@ -16,9 +16,11 @@
 <script>
 import notificationsComponent from '../components/notificationsComponent.vue'
 import $ from 'jquery'
+import {globalMethods} from '../js/globalMethods.js'
 
 export default {
     name: "headerOptions",
+    mixins: [globalMethods],
     methods: {
         showNotifications() {
             $("#notifications-component").toggleClass("d-block");
