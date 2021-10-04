@@ -11,11 +11,13 @@
     --green-high: #42FF00!important;
     --green: #6FEA44!important;
     --green-medium: #6FEA44!important;
+    --green-low: #56b335!important;
     --gray-low: #202020!important;
     --gray-low-2: rgb(92, 92, 92)20!important;
     --gray: #757575!important;
     --gray-medium: #CFCFCF!important;
     --gray-medium-2: #bdbdbd!important;
+    --gray-medium-3: #ededed!important;
     --purple: #CC00FF!important;
     --gray-high: #F1F5FA!important;
     --gray-high-2: #e3e6eb!important;
@@ -352,7 +354,6 @@ p {
 .container-photo {
     display: flex;
     align-items: flex-end;
-    
 } 
 
 /* INPUTS */
@@ -443,24 +444,6 @@ p {
     align-items: center;
 }
 
-@media (max-width: 720px) {
-    .chat-box {
-        min-width: 50vw;
-        height: 400px;
-    }
-    .chat-box-body {
-        height: 278px;
-    }
-}
-@media (max-width: 520px) {
-    .chat-box {
-        min-width: 85vw;
-    }
-    .chat-box-footer input::placeholder {
-        font-size: .8rem;
-    }
-}
-
 .input-icons {
     display: flex;
     align-items: center;
@@ -493,10 +476,85 @@ p {
     left: 2rem
 }
 
+@media (max-width: 1060px) {
+    .chat-box-footer input {
+        font-size: .8rem;
+    }
+}
+
 .textBlack {
     color: var(--gray-low);
 }
 
 .textWhite {
     color: var(--white);
+}
+
+input {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--gray-medium);
+    color: var(--gray-low);
+    padding: .2rem;
+    padding-left: .5rem;
+}
+input:disabled {
+    background: var(--gray-high-2)
+}
+
+label, input {
+    display: block;
+}
+
+input[type=checkbox] {
+    cursor: pointer;
+}
+
+.response {
+    text-align: center;
+    margin-top: .3rem;
+    color: var(--green-low);
+}
+
+/* CONFIRM BUTTONS */
+
+.confirm-buttons {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.confirm-buttons input {
+    width: 47%;
+}
+
+#update-informations {
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+}
+
+#update-informations:hover {
+    background: var(--blue-high);
+}
+
+#update-informations:active {
+    background: var(--blue-low);
+}
+
+#cancel-update {
+    background: var(--gray-medium);
+    border: none;
+}
+
+#cancel-update:hover {
+    background: var(--gray-high-2);
+    border: none;
+}
+
+#cancel-update:active {
+    background: var(--gray-medium-2);
+    border: none;
 }

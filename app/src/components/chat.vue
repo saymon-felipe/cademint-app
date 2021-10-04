@@ -14,7 +14,7 @@
                         <img :src="requireImage(friendId)" class="avatar-p">
                         <div :class="'onlineOffline' + userIsOnline(friendId)"></div>
                     </div>
-                    <div class="container-user-text" v-on:click="openChatBox(friendId)">
+                    <div class="container-user-text" v-on:click="showChatBoxFunction(friendId)">
                         <div class="name-status">
                             <h5 class="user-name-others">{{ findName(friendId) }}</h5>
                             <h6 class="user-status">{{ getStatusText(friendId) }}</h6>
@@ -24,9 +24,8 @@
                     <div class="time-last-message" title="Tempo desde a última mensagem">
                         {{ timeLastMessage() }}
                     </div>
-                    
+                <chatBox :id="'chat-box-' + friendId" :friendId="friendId"/> 
                 </div>
-                <!--<chatBox :friendId="friendId" />-->
             </div>
             <div class="hr"></div>
             <div class="container-groups">
@@ -52,14 +51,14 @@
                 </div>
             </div>
         </section>
-        <userCard class="card" :cardId="this.friendCardId" />
+        <userCard class="card" :cardId="this.friendCardId"/>
         <div class="card-overlay" v-on:click="hideCard()"></div>
     </div>
 </template>
 
 <script>
 import $ from 'jquery'
-//import chatBox from '../components/chatBox.vue'
+import chatBox from '../components/chatBox.vue'
 import {globalMethods} from '../js/globalMethods.js'
 import userCard from '../components/userCard.vue'
 
@@ -69,9 +68,7 @@ export default {
     methods: {
         showCard(id) {
             $(".card").hide();
-            console.log("mostrar card id " + id);
             this.friendCardId = id;
-            console.log(this.friendCardId)
             $(".card").css("display", "flex");
             $(".card-overlay").show();
         },
@@ -79,15 +76,14 @@ export default {
             $(".card").css("display", "none");
             $(".card-overlay").hide();
         },
-        openChatBox() {
-            //$(chatBox).show();
-            
-        },
+        showChatBoxFunction(id) {
+            $("#chat-box-" + id).show();
+        }
         
     },
     components: {
-        userCard
-        //chatBox
+        userCard,
+        chatBox
     }
 }
 </script>
@@ -209,6 +205,7 @@ export default {
 
     .name-status {
         margin-bottom: .5rem;
+        margin-left: -1rem;
     }
 
     .time-last-message {
@@ -256,7 +253,7 @@ export default {
     /* STATUS */
 
     .user-status {
-        width: calc(100% - 4rem);
+        width: calc(100% - 5rem);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
