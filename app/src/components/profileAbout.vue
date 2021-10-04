@@ -2,8 +2,8 @@
     <div class="about-container">
         <div class="about-content">
             <div class="about-header">
-                <h6><strong class="about-name">Sobre Saymon Felipe</strong></h6>
-                <div class="edit-name">
+                <h6><strong class="about-name">Sobre {{ findName($route.params.id) }}</strong></h6>
+                <div class="edit-informations" v-on:click="editProfileInformations($route.params.id)">
                     <i class="fas fa-pen"></i>
                 </div>
             </div>
@@ -12,37 +12,37 @@
                     <div class="about-icon">
                         <i class="fas fa-birthday-cake"></i>
                     </div>
-                    <span>{{ userBirthday }}</span>
+                    <span>{{ returnFormatedDate(findUser($route.params.id).birthday) }}</span>
                 </div>
                 <div class="relationship">
                     <div class="about-icon">
                         <i class="fas fa-heart"></i>
                     </div>
-                    <span>{{ relationship }}</span>
+                    <span>{{ returnRelationship($route.params.id) }}</span>
                 </div>
                 <div class="schooling">
                     <div class="about-icon">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <span>{{ schoolingStatus }} em <strong>{{ schooling }}</strong></span>
+                    <span>{{ findUser($route.params.id).schooling }} em <strong>{{ findUser($route.params.id).institution }}</strong></span>
                 </div>
                 <div class="telephone">
                     <div class="about-icon">
                         <i class="fas fa-phone"></i>
                     </div>
-                    <span>{{ telephone }}</span>
+                    <span>{{ formatTel(findUser($route.params.id).tel) }}</span>
                 </div>
                 <div class="from">
                     <div class="about-icon">
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
-                    <span>De <strong>{{ from }}</strong></span>
+                    <span>De <strong>{{ findUser($route.params.id).from }}</strong></span>
                 </div>
                 <div class="live-in">
                     <div class="about-icon">
                         <i class="fas fa-home"></i>
                     </div>
-                    <span>Mora em <strong>{{ liveIn }}</strong></span>
+                    <span>Mora em <strong>{{ findUser($route.params.id).live }}</strong></span>
                 </div>
             </div>
         </div>
@@ -84,9 +84,24 @@
 </template>
 
 <script>
+import {globalMethods} from '../js/globalMethods.js'
+import $ from 'jquery'
+
 export default {
     name: "profileAbout",
-    props: ["userBirthday", "relationship", "schooling", "schoolingStatus", "telephone", "from", "liveIn"]
+    mixins: [globalMethods],
+    methods: {
+        editProfileInformations(id) {
+            console.log(id)
+            var userName = $(".about-name");
+            var input = $("<input />");
+            input.attr({
+                value: this.findName(id),
+                name: "name-input"
+            })
+            userName
+        }
+    }
 }
 </script>
 
@@ -122,7 +137,7 @@ export default {
         flex-wrap: wrap;
     }
 
-    .edit-name, .edit-movies {
+    .edit-informations, .edit-movies {
         cursor: pointer;
         background: transparent;
         border-radius: 50%;
@@ -135,11 +150,11 @@ export default {
         transition: 0.2s background;
     }
 
-    .edit-name:active, .edit-movies:active {
+    .edit-informations:active, .edit-movies:active {
         background: var(--gray-medium);
     }
 
-    .edit-name:hover, .edit-movies:hover {
+    .edit-informations:hover, .edit-movies:hover {
         opacity: 0.8;
     }
 
@@ -151,10 +166,6 @@ export default {
 
     .about-informations span {
         font-size: 1rem;
-    }
-
-    .relationship span {
-        text-transform: capitalize;
     }
 
     .about-icon {

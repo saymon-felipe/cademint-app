@@ -29,8 +29,8 @@
                 </div>
                 <div class="profile-body-content">
                     <profileTimeLine v-if="timeLine == 1" />
-                    <profileAbout v-if="about == 1" userBirthday="14/09/2001" relationship="solteiro" schooling="Unicesumar" schoolingStatus="Estuda" telephone="(43) 9 9635-2536" from="Curitiba" liveIn="São João do Ivaí" />
-                    <profileFriends v-if="friends == 1" userBirthday="22/12/2004" schoolingStatus="estuda" schooling="Unicesumar" telephone="41 9 8705-3290" from="Curitiba" liveIn="Curitiba"/>
+                    <profileAbout v-if="about == 1" />
+                    <profileFriends v-if="friends == 1" :userId="$route.params.id"/>
                     <profilePhoto v-if="photos == 1" />
                 </div>
             </div>

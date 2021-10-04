@@ -7,15 +7,13 @@
             </div>
         </div>
         <div class="friends-inner">
-            <div class="friend" id="user-001" v-on:click="expandFriendContainer(0)">
+            <div class="friend" v-for="(friend, index) in findUser(userId).friends" v-bind:key="index" :id="'friend-' + index" v-on:click="expandFriendContainer(index)">
                 <div class="friend-header">
                     <div class="container-photo">
-                        <img src="../assets/img/test/girl1.png" class="avatar-p" draggable="false">
-                        <div class="onlineOffline"></div>
+                        <img :src="requireImage(friend)" class="avatar-p" draggable="false">
                     </div>
                     <div>
-                        <h5 class="user-name-others"></h5>
-                        <h6 class="user-status"></h6>
+                        <h5 class="user-name-others">{{ findName(friend) }}</h5>
                     </div>
                 </div>
                 <div class="containerFriends">
@@ -30,31 +28,31 @@
                                         <div class="about-icon">
                                             <i class="fas fa-birthday-cake"></i>
                                         </div>
-                                        <span>{{ userBirthday }}</span>
+                                        <span>{{ returnFormatedDate(findUser(friend).birthday) }}</span>
                                     </div>
                                     <div class="schooling">
                                         <div class="about-icon">
                                             <i class="fas fa-graduation-cap"></i>
                                         </div>
-                                        <span>{{ schoolingStatus }} em <strong>{{ schooling }}</strong></span>
+                                        <span>{{ findUser(friend).schooling }} em <strong>{{ findUser(friend).institution }}</strong></span>
                                     </div>
                                     <div class="telephone">
                                         <div class="about-icon">
                                             <i class="fas fa-phone"></i>
                                         </div>
-                                        <span>{{ telephone }}</span>
+                                        <span>{{ formatTel(findUser(friend).tel) }}</span>
                                     </div>
                                     <div class="from">
                                         <div class="about-icon">
                                             <i class="fas fa-map-marker-alt"></i>
                                         </div>
-                                        <span>De <strong>{{ from }}</strong></span>
+                                        <span>De <strong>{{ findUser(friend).from }}</strong></span>
                                     </div>
                                     <div class="live-in">
                                         <div class="about-icon">
                                             <i class="fas fa-home"></i>
                                         </div>
-                                        <span>Mora em <strong>{{ liveIn }}</strong></span>
+                                        <span>Mora em <strong>{{ findUser(friend).live }}</strong></span>
                                     </div>
                                 </div>
                             </div>
@@ -71,480 +69,9 @@
                                         </div>
                                     </div>
                                     <div class="mutual-friends-list">
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div> 
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div> 
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="friend" id="user-001" v-on:click="expandFriendContainer(1)">
-                <div class="friend-header">
-                    <div class="container-photo">
-                        <img src="../assets/img/test/girl1.png" class="avatar-p" draggable="false">
-                        <div class="onlineOffline"></div>
-                    </div>
-                    <div>
-                        <h5 class="user-name-others"></h5>
-                        <h6 class="user-status"></h6>
-                    </div>
-                </div>
-                <div class="containerFriends">
-                    <div class="about-friend-container">
-                        <div class="friend-informations-container">
-                            <div class="about-inner">
-                                <div class="about-friend selected" v-on:click="showAboutFriend()">
-                                    <i class="fas fa-info-circle"></i>
-                                </div>
-                                <div class="about-friend-inner">
-                                    <div class="birthday">
-                                        <div class="about-icon">
-                                            <i class="fas fa-birthday-cake"></i>
-                                        </div>
-                                        <span>{{ userBirthday }}</span>
-                                    </div>
-                                    <div class="schooling">
-                                        <div class="about-icon">
-                                            <i class="fas fa-graduation-cap"></i>
-                                        </div>
-                                        <span>{{ schoolingStatus }} em <strong>{{ schooling }}</strong></span>
-                                    </div>
-                                    <div class="telephone">
-                                        <div class="about-icon">
-                                            <i class="fas fa-phone"></i>
-                                        </div>
-                                        <span>{{ telephone }}</span>
-                                    </div>
-                                    <div class="from">
-                                        <div class="about-icon">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                        </div>
-                                        <span>De <strong>{{ from }}</strong></span>
-                                    </div>
-                                    <div class="live-in">
-                                        <div class="about-icon">
-                                            <i class="fas fa-home"></i>
-                                        </div>
-                                        <span>Mora em <strong>{{ liveIn }}</strong></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mutual-friends-container">
-                                <div class="mutual-friends" v-on:click="showMutualFriends()">
-                                    <i class="fas fa-user-friends"></i>
-                                </div>
-                                <div class="mutual-friends-inner">
-                                    <h6><strong>Amigos em comum</strong></h6>
-                                    <div class="friends-search">
-                                        <div class="input-div">
-                                            <input type="text" name="friendsSearch" id="people-search" placeholder="Procurar amigos">
-                                            <i class="fas fa-search"></i>
-                                        </div>
-                                    </div>
-                                    <div class="mutual-friends-list">
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div> 
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div> 
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="friend" id="user-001" v-on:click="expandFriendContainer(2)">
-                <div class="friend-header">
-                    <div class="container-photo">
-                        <img src="../assets/img/test/girl1.png" class="avatar-p" draggable="false">
-                        <div class="onlineOffline"></div>
-                    </div>
-                    <div>
-                        <h5 class="user-name-others"></h5>
-                        <h6 class="user-status"></h6>
-                    </div>
-                </div>
-                <div class="containerFriends">
-                    <div class="about-friend-container">
-                        <div class="friend-informations-container">
-                            <div class="about-inner">
-                                <div class="about-friend selected" v-on:click="showAboutFriend()">
-                                    <i class="fas fa-info-circle"></i>
-                                </div>
-                                <div class="about-friend-inner">
-                                    <div class="birthday">
-                                        <div class="about-icon">
-                                            <i class="fas fa-birthday-cake"></i>
-                                        </div>
-                                        <span>{{ userBirthday }}</span>
-                                    </div>
-                                    <div class="schooling">
-                                        <div class="about-icon">
-                                            <i class="fas fa-graduation-cap"></i>
-                                        </div>
-                                        <span>{{ schoolingStatus }} em <strong>{{ schooling }}</strong></span>
-                                    </div>
-                                    <div class="telephone">
-                                        <div class="about-icon">
-                                            <i class="fas fa-phone"></i>
-                                        </div>
-                                        <span>{{ telephone }}</span>
-                                    </div>
-                                    <div class="from">
-                                        <div class="about-icon">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                        </div>
-                                        <span>De <strong>{{ from }}</strong></span>
-                                    </div>
-                                    <div class="live-in">
-                                        <div class="about-icon">
-                                            <i class="fas fa-home"></i>
-                                        </div>
-                                        <span>Mora em <strong>{{ liveIn }}</strong></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mutual-friends-container">
-                                <div class="mutual-friends" v-on:click="showMutualFriends()">
-                                    <i class="fas fa-user-friends"></i>
-                                </div>
-                                <div class="mutual-friends-inner">
-                                    <h6><strong>Amigos em comum</strong></h6>
-                                    <div class="friends-search">
-                                        <div class="input-div">
-                                            <input type="text" name="friendsSearch" id="people-search" placeholder="Procurar amigos">
-                                            <i class="fas fa-search"></i>
-                                        </div>
-                                    </div>
-                                    <div class="mutual-friends-list">
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div> 
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div> 
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="friend" id="user-001" v-on:click="expandFriendContainer(3)">
-                <div class="friend-header">
-                    <div class="container-photo">
-                        <img src="../assets/img/test/girl1.png" class="avatar-p" draggable="false">
-                        <div class="onlineOffline"></div>
-                    </div>
-                    <div>
-                        <h5 class="user-name-others"></h5>
-                        <h6 class="user-status"></h6>
-                    </div>
-                </div>
-                <div class="containerFriends">
-                    <div class="about-friend-container">
-                        <div class="friend-informations-container">
-                            <div class="about-inner">
-                                <div class="about-friend selected" v-on:click="showAboutFriend()">
-                                    <i class="fas fa-info-circle"></i>
-                                </div>
-                                <div class="about-friend-inner">
-                                    <div class="birthday">
-                                        <div class="about-icon">
-                                            <i class="fas fa-birthday-cake"></i>
-                                        </div>
-                                        <span>{{ userBirthday }}</span>
-                                    </div>
-                                    <div class="schooling">
-                                        <div class="about-icon">
-                                            <i class="fas fa-graduation-cap"></i>
-                                        </div>
-                                        <span>{{ schoolingStatus }} em <strong>{{ schooling }}</strong></span>
-                                    </div>
-                                    <div class="telephone">
-                                        <div class="about-icon">
-                                            <i class="fas fa-phone"></i>
-                                        </div>
-                                        <span>{{ telephone }}</span>
-                                    </div>
-                                    <div class="from">
-                                        <div class="about-icon">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                        </div>
-                                        <span>De <strong>{{ from }}</strong></span>
-                                    </div>
-                                    <div class="live-in">
-                                        <div class="about-icon">
-                                            <i class="fas fa-home"></i>
-                                        </div>
-                                        <span>Mora em <strong>{{ liveIn }}</strong></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mutual-friends-container">
-                                <div class="mutual-friends" v-on:click="showMutualFriends()">
-                                    <i class="fas fa-user-friends"></i>
-                                </div>
-                                <div class="mutual-friends-inner">
-                                    <h6><strong>Amigos em comum</strong></h6>
-                                    <div class="friends-search">
-                                        <div class="input-div">
-                                            <input type="text" name="friendsSearch" id="people-search" placeholder="Procurar amigos">
-                                            <i class="fas fa-search"></i>
-                                        </div>
-                                    </div>
-                                    <div class="mutual-friends-list">
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div> 
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div> 
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="friend" id="user-001" v-on:click="expandFriendContainer(4)">
-                <div class="friend-header">
-                    <div class="container-photo">
-                        <img src="../assets/img/test/girl1.png" class="avatar-p" draggable="false">
-                        <div class="onlineOffline"></div>
-                    </div>
-                    <div>
-                        <h5 class="user-name-others"></h5>
-                        <h6 class="user-status"></h6>
-                    </div>
-                </div>
-                <div class="containerFriends">
-                    <div class="about-friend-container">
-                        <div class="friend-informations-container">
-                            <div class="about-inner">
-                                <div class="about-friend selected" v-on:click="showAboutFriend()">
-                                    <i class="fas fa-info-circle"></i>
-                                </div>
-                                <div class="about-friend-inner">
-                                    <div class="birthday">
-                                        <div class="about-icon">
-                                            <i class="fas fa-birthday-cake"></i>
-                                        </div>
-                                        <span>{{ userBirthday }}</span>
-                                    </div>
-                                    <div class="schooling">
-                                        <div class="about-icon">
-                                            <i class="fas fa-graduation-cap"></i>
-                                        </div>
-                                        <span>{{ schoolingStatus }} em <strong>{{ schooling }}</strong></span>
-                                    </div>
-                                    <div class="telephone">
-                                        <div class="about-icon">
-                                            <i class="fas fa-phone"></i>
-                                        </div>
-                                        <span>{{ telephone }}</span>
-                                    </div>
-                                    <div class="from">
-                                        <div class="about-icon">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                        </div>
-                                        <span>De <strong>{{ from }}</strong></span>
-                                    </div>
-                                    <div class="live-in">
-                                        <div class="about-icon">
-                                            <i class="fas fa-home"></i>
-                                        </div>
-                                        <span>Mora em <strong>{{ liveIn }}</strong></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mutual-friends-container">
-                                <div class="mutual-friends" v-on:click="showMutualFriends()">
-                                    <i class="fas fa-user-friends"></i>
-                                </div>
-                                <div class="mutual-friends-inner">
-                                    <h6><strong>Amigos em comum</strong></h6>
-                                    <div class="friends-search">
-                                        <div class="input-div">
-                                            <input type="text" name="friendsSearch" id="people-search" placeholder="Procurar amigos">
-                                            <i class="fas fa-search"></i>
-                                        </div>
-                                    </div>
-                                    <div class="mutual-friends-list">
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div> 
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div> 
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="friend" id="user-001" v-on:click="expandFriendContainer(5)">
-                <div class="friend-header">
-                    <div class="container-photo">
-                        <img src="../assets/img/test/girl1.png" class="avatar-p" draggable="false">
-                        <div class="onlineOffline"></div>
-                    </div>
-                    <div>
-                        <h5 class="user-name-others"></h5>
-                        <h6 class="user-status"></h6>
-                    </div>
-                </div>
-                <div class="containerFriends">
-                    <div class="about-friend-container">
-                        <div class="friend-informations-container">
-                            <div class="about-inner">
-                                <div class="about-friend selected" v-on:click="showAboutFriend()">
-                                    <i class="fas fa-info-circle"></i>
-                                </div>
-                                <div class="about-friend-inner">
-                                    <div class="birthday">
-                                        <div class="about-icon">
-                                            <i class="fas fa-birthday-cake"></i>
-                                        </div>
-                                        <span>{{ userBirthday }}</span>
-                                    </div>
-                                    <div class="schooling">
-                                        <div class="about-icon">
-                                            <i class="fas fa-graduation-cap"></i>
-                                        </div>
-                                        <span>{{ schoolingStatus }} em <strong>{{ schooling }}</strong></span>
-                                    </div>
-                                    <div class="telephone">
-                                        <div class="about-icon">
-                                            <i class="fas fa-phone"></i>
-                                        </div>
-                                        <span>{{ telephone }}</span>
-                                    </div>
-                                    <div class="from">
-                                        <div class="about-icon">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                        </div>
-                                        <span>De <strong>{{ from }}</strong></span>
-                                    </div>
-                                    <div class="live-in">
-                                        <div class="about-icon">
-                                            <i class="fas fa-home"></i>
-                                        </div>
-                                        <span>Mora em <strong>{{ liveIn }}</strong></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mutual-friends-container">
-                                <div class="mutual-friends" v-on:click="showMutualFriends()">
-                                    <i class="fas fa-user-friends"></i>
-                                </div>
-                                <div class="mutual-friends-inner">
-                                    <h6><strong>Amigos em comum</strong></h6>
-                                    <div class="friends-search">
-                                        <div class="input-div">
-                                            <input type="text" name="friendsSearch" id="people-search" placeholder="Procurar amigos">
-                                            <i class="fas fa-search"></i>
-                                        </div>
-                                    </div>
-                                    <div class="mutual-friends-list">
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div> 
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div> 
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
-                                        </div>
-                                        <div class="mutual-friend">
-                                            <img src="../assets/img/test/girl3.png" class="avatar-p" draggable="false">
-                                            <h6><strong>Cristina Gonçalves</strong></h6>
+                                        <div class="mutual-friend" v-for="mutualFriend in getMutualFriends(userId, friend)" v-bind:key="mutualFriend" v-on:click="goToUserProfile(mutualFriend)">
+                                            <img :src="requireImage(mutualFriend)" class="avatar-p" draggable="false">
+                                            <h6><strong>{{ findName(mutualFriend) }}</strong></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -559,19 +86,16 @@
 
 <script>
 import $ from 'jquery'
+import {globalMethods} from '../js/globalMethods.js'
 
 export default {
     name: "profileFriends",
+    mixins: [globalMethods],
     methods: {
-        expandFriendContainer(n) {
-            var containerExpanded = $(".containerFriends");
-            var status = $(".friends-inner .user-status");
-            containerExpanded.each((index, element) => {
-                element.style = "display: none";
-                status[index].style = "display: none";
-            });
-            containerExpanded[n].style = "display: block";
-            status[n].style = "display: block";
+        expandFriendContainer(friend) {
+            this.resetFriendContainer();
+            var containerExpanded = $("#friend-" + friend + " .containerFriends");
+            containerExpanded.css("display", "block");
         },
         showAboutFriend() {
             $(".mutual-friends").removeClass("selected");
@@ -584,13 +108,23 @@ export default {
             $(".mutual-friends").addClass("selected");
             $(".about-friend-inner").css("z-index", "-1");
             $(".mutual-friends-inner").css("z-index", "1");
+        },
+        resetFriendContainer() {
+             var containerExpanded = document.querySelectorAll(".containerFriends");
+             for (let i = 0; i < containerExpanded.length; i++) {
+                 containerExpanded[i].style = "display: none;";
+             }
         }
     },
-    props: ["userBirthday", "schoolingStatus", "schooling", "telephone", "from", "liveIn"]
+    props: ["userId"]
 }
 </script>
 
 <style scoped>
+
+    .container-photo {
+        margin-right: 1rem;
+    }
 
     .friends-inner {
         margin-top: 1.5rem;
@@ -619,6 +153,8 @@ export default {
 
     .containerFriends {
         display: none;
+        margin-bottom: 1rem;
+        height: 180px;    
     }
 
     .birthday, .relationship, .schooling, .telephone, .from, .live-in {
@@ -648,6 +184,10 @@ export default {
         cursor: pointer;
     }
 
+    .about-friend-container {
+        height: 100%;
+    }
+
     .mutual-friends {
         margin-top: 5rem;
     }
@@ -670,6 +210,7 @@ export default {
     .friend-informations-container {
         margin-left: 1rem;
         margin-top: 1.3rem;
+        height: 100%;
     }
 
     .mutual-friends-container {
@@ -677,6 +218,7 @@ export default {
         align-items: flex-start;
         margin-left: -.3rem;
         width: 100%;
+        height: 100%;
         margin-top: -11.5rem;
     }
 
@@ -684,6 +226,7 @@ export default {
         z-index: -1;
         max-height: 250px;
         overflow: hidden;
+        height: 100%;
     }
 
         .mutual-friends-inner h6 {
@@ -692,7 +235,7 @@ export default {
 
     .mutual-friends-list {
         margin: .5rem .6rem 0;
-        max-height: 120px;
+        max-height: 90px;
         overflow-y: scroll;
     }
 
@@ -700,6 +243,7 @@ export default {
         display: flex;
         align-items: center;
         margin: .3rem 0;
+        cursor: pointer;
     }
 
         .mutual-friend h6 {
