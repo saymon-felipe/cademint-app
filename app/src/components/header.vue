@@ -26,9 +26,9 @@
                         <h6>{{ formatRankingPosition(this.findUser(this.mainUserId).ranking_position) }}</h6>
                     </div>
                 </div>
-                <a href="/" class="account-configuration">
+                <router-link to="/user-config" class="account-configuration">
                     <i class="fas fa-cog"></i>
-                </a>
+                </router-link>
             </div>
             <div class="status-box">
                 <div class="status-content">
@@ -114,11 +114,6 @@ export default {
                 this.hasOpened = 1;
                 $(".overlayChat").show();
             }
-        },
-        closeChat() {
-            $('.chat').css("transform", "translateX(100vw)");
-            this.hasOpened = 0;
-            $(".overlayChat").hide();
         }
     }
 }
@@ -195,7 +190,7 @@ export default {
         transform: translateX(-500px);
     }
 
-    @media (max-width: 720px) {
+    @media (max-height: 555px) {
         #lateral-menu {
             overflow-y: scroll;
         }

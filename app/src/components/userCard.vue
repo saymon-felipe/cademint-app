@@ -16,8 +16,8 @@
                 <h6 class="user-status-complete">{{ getStatusText(cardId) }}</h6>
             </div>
             <div class="card-footer">
-                <router-link :to="'/meeting/' + true"><i class="fas fa-video"></i></router-link>
-                <router-link :to="'/meeting/' + false"><i class="fas fa-phone"></i></router-link>
+                <router-link :to="'/meeting/' + true"><i class="fas fa-video" @click.native="initiateConferenceTimer()"></i></router-link>
+                <router-link :to="'/meeting/' + false"><i class="fas fa-phone" @click.native="initiateConferenceTimer()"></i></router-link>
             </div>
         </div>
     </div>
