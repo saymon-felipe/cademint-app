@@ -1,3 +1,4 @@
+import $ from 'jquery'
 export const globalMethods = {
     methods: {
         //Função converte a posição no ranking em numero para classes
@@ -55,7 +56,6 @@ export const globalMethods = {
         },
         findGroupIparticipate(userId) {
           var groups = this.findUser(userId).groups;
-          console.log("grupos " + groups)
           return groups;
         },
         formatRankingPosition(rankingPosition) {
@@ -103,9 +103,9 @@ export const globalMethods = {
         //Testa se o usuário está online
         userIsOnline(id) {
           if (this.findUser(id).is_online) {
-            return "online";
+            return " online";
           } else {
-            return "offline";
+            return " offline";
           }
         },
         getStatusText(id) {
@@ -122,61 +122,234 @@ export const globalMethods = {
         },
         goToUserProfile(userId) {
           window.location = "/profile/" + userId
+        },
+        enableInput(element) {
+          $(element).removeAttr("disabled");
+          $(element).attr("required", "required");
+        },
+        disableInput(element) {
+          $(element).removeAttr("required");
+          $(element).attr("disabled", "disabled");
+        },
+        formatTel(tel) {
+          var remainingTel = "";
+          var arrayTel = tel.toString().split('');
+          var formatedTel1 = `(${arrayTel[0]}${arrayTel[1]}) ${arrayTel[2]} `
+          arrayTel.splice(0, 3);
+          for (let i in arrayTel) {
+            remainingTel += arrayTel[i];
+            if (i == 3) {
+              remainingTel += "-";
+            }
+          }
+          var formatedTel2 = formatedTel1 + remainingTel; 
+          return formatedTel2;
+        },
+        getMutualFriends(mainUserId, friendId) {
+          var mainUser = this.findUser(mainUserId);
+          var friend = this.findUser(friendId);
+          var mutualFriends = [];
+          for (let i in mainUser.friends) {
+            for (let j in friend.friends) {
+              if (friend.friends[j] == mainUser.friends[i]) {
+                mutualFriends.push(friend.friends[j]);
+              }
+            }
+          }
+          return mutualFriends;
+        },
+        returnFormatedDate(date) {
+          var arrayDate = date.split("-");
+          var formatedDate = `${arrayDate[2]}/${arrayDate[1]}/${arrayDate[0]}`
+          return formatedDate;
+        },
+        returnRelationship(id) {
+          var user = this.findUser(id);
+          var relationship = user.relationship;
+          var gender = user.gender;
+          var genderControl = '';
+          if (gender == "f") {
+            genderControl = "a";
+          } else {
+            genderControl = "o";
+          }
+          if (relationship == "alone") {
+            return "Solteir" + genderControl;
+          } else if (relationship == "loving") {
+            var partnerName = this.findName(user.partner);
+            return "Em um relacionamento com " + partnerName ;
+          }
+        },
+        formatTime(hour, minute, second) {
+          let formatedSecond;
+          let formatedMinute;
+          if (second < 10) {
+            formatedSecond = "0" + second;
+          } else {
+            formatedSecond = second;
+          }
+          if (minute < 10) {
+            formatedMinute = "0" + minute;
+          } else {
+            formatedMinute = minute;
+          }
+          if (!hour == 0) {
+            return hour + ":" + formatedMinute + ":" + formatedSecond;
+          } else {
+            return formatedMinute + ":" + formatedSecond;
+          }
+        },
+        calcTime(element, timeRange) {
+          let second = 0;
+          let minute = 0;
+          let hour = 0;
+          let timerAudio = setInterval(() => {
+            second += 1;
+            if (second == 60) {
+              minute += 1;
+              second = 0;
+            }
+            if (minute == 60) {
+              minute = 0;
+              hour += 1;
+            }
+            this.totalSeconds += 1;
+            if (this.totalSeconds >= timeRange) {
+              clearInterval(timerAudio);
+              this.totalSeconds = 0;
+            }
+            $(element).html(this.formatTime(hour, minute, second));
+          }, 1000);
+        },
+        initiateConferenceTimer(){
+          $(".time-duration-container").show();
+          if (this.totalSeconds == 0) {
+            this.calcTime(".time-duration", 18000);
+          }
+
+          //Fechar o chat
+          $(".chat-box").hide();
+          var windowWidth = $(window).width();
+          if (windowWidth <= 850) {
+            this.closeChat();
+          }
+        },
+        closeChat() {
+          $('.chat').css("transform", "translateX(100vw)");
+          this.hasOpened = 0;
+          $(".overlayChat").hide();
         }
     },
     data() {
         return {
             mainUserId: 1, //posição do usuario no array
             friendCardId: 0,
+            totalSeconds: 0,
 
             //Declaração de usuários para teste
             users: [
                 {
                 id: 1,
                 name: "Saymon Felipe",
+                gender: "m",
                 avatar: "img-user-test-1.jpg",
+                nickname: "saymonf",
+                email: "linnubr@gmail.com",
+                tel: 41996352536,
+                birthday: "2001-14-09",
+                relationship: "loving",
+                partner: "2",
+                allow_private_tel: true,
+                only_friends: false,
                 is_online: true,
                 status_text: "Jogando lol com a raposa mais linda de sempre!!!",
-                friends: [2, 3, 4],
+                friends: [2, 3],
+                schooling: "Estudou",
+                from: "Curitiba",
+                live: "São João do Ivaí",
+                institution: "Arthur de Azevedo",
                 age: 19,
                 ranking_position: 682,
-                groups: [1, 2, 3]
+                groups: [1, 2, 3],
+                blocked_users: [4]
                 },
                 
                 {
                 id: 2,
                 name: "Ana Clara",
+                gender: "f",
+                nickname: "aninha",
+                email: "aninha2004@gmail.com",
+                tel: 41987005329,
+                birthday: "2004-12-22",
+                relationship: "loving",
+                partner: "1",
+                allow_private_tel: false,
+                only_friends: true,
                 avatar: "girl1.png",
                 is_online: true,
                 status_text: "Escutando BlackPink e jogando lol, venha jogar comigo onii-san!!! 😍😍🎵",
                 friends: [1, 3, 4],
+                schooling: "Estuda",
+                institution: "Colégio Zardo",
+                from: "Curitiba",
+                live: "Curitiba",
                 age: 19,
                 ranking_position: 28,
-                groups: [1, 2, 3]
+                groups: [1, 2, 3],
+                blocked_users: [4]
                 },
                 
                 {
                 id: 3,
                 name: "Cristina Gonçalves",
+                gender: "f",
+                nickname: "curisutina",
+                email: "crisrainhadeles@gmail.com",
+                tel: 42998541872,
+                birthday: "2006-02-03",
+                relationship: "alone",
+                partner: "",
+                allow_private_tel: false,
+                only_friends: true,
                 avatar: "girl3.png",
                 is_online: false,
                 status_text: "",
                 friends: [1, 2, 4],
+                schooling: "Estudou",
+                institution: "Colégio Zardo",
+                from: "Curitiba",
+                live: "Curitiba",
                 age: 17,
                 ranking_position: 830,
-                groups: [1, 3]
+                groups: [1, 3],
+                blocked_users: []
                 },
                 
                 {
                 id: 4,
                 name: "Sofia Cavalcanti dos Santos",
+                gender: "f",
+                nickname: "sofih",
+                email: "sofiacs@hotmail.com",
+                tel: 44986593112,
+                birthday: "2003-08-09",
+                relationship: "alone",
+                partner: "",
                 avatar: "girl4.jpg",
+                allow_private_tel: true,
+                only_friends: false,
                 is_online: true,
                 status_text: "",
                 friends: [1, 2, 3],
+                schooling: "Estuda",
+                institution: "Colégio Zardo",
+                from: "Curitiba",
+                live: "Curitiba",
                 age: 16,
                 ranking_position: 227,
-                groups: [3]
+                groups: [3],
+                blocked_users: []
                 }
             ],
 
